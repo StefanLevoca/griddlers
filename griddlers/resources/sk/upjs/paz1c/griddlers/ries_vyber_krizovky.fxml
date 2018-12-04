@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="400.0" layoutY="47.0" text="Zobraziť názvy">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="zobrazitNazvyCheckBox" layoutX="556.0" layoutY="54.0" mnemonicParsing="false" />
+      <ComboBox fx:id="narocnostComboBox" layoutX="149.0" layoutY="50.0" prefWidth="150.0" promptText="Náročnosť " visibleRowCount="3" />
+      <Button fx:id="spatButton" layoutX="13.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleSpatButtonAction" text="Späť">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <Button fx:id="potvrdButton" layoutX="487.0" layoutY="336.0" mnemonicParsing="false" onAction="#handlePotvrdButtonAction" text="Potvrď">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <TableView fx:id="krizovkyTableView" layoutX="31.0" layoutY="88.0" prefHeight="238.0" prefWidth="536.0">
+         <columns>
+            <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="narocnostTableColumn" prefWidth="94.4000244140625" text="Náročnosť" />
+            <TableColumn fx:id="sirkaTableColumn" prefWidth="63.199951171875" text="Šírka" />
+            <TableColumn fx:id="vyskaTableColumn" prefWidth="80.79998779296875" text="Výška" />
+            <TableColumn fx:id="nazovTableColumn" prefWidth="220.0" text="Názov" />
+         </columns></TableView>
+      <Label layoutX="438.0" layoutY="10.0" text="Výber krížovky">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="34.0" layoutY="47.0" text="Naročnosti:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
