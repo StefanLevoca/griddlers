@@ -26,7 +26,7 @@ public class StatistikaController extends Controller {
 	private TableColumn<Hra, LocalDateTime> casTableColumn;
 
 	@FXML
-	private TableColumn<Hra, Long> idKrizovkyTableColumn;
+	private TableColumn<Hra, String> nazovKrizovkyTableColumn;
 
 	@FXML
 	private TableColumn<Hra, Integer> pocetTahovTableColumn;
@@ -47,11 +47,11 @@ public class StatistikaController extends Controller {
 
 	@FXML
 	void initialize() {
-		ObservableList<Obdobie> obdobia = FXCollections.observableArrayList(Obdobie.DEN, Obdobie.TYZDEN,
+		ObservableList<Obdobie> obdobia = FXCollections.observableArrayList(Obdobie.VSETKY, Obdobie.DEN, Obdobie.TYZDEN,
 				Obdobie.MESIAC);
 		obdobieComboBox.setItems(obdobia);
 		obdobieComboBox.getSelectionModel().selectFirst();
-		hry = manager.zmenHry(Obdobie.DEN);
+		hry = manager.zmenHry(obdobieComboBox.getSelectionModel().getSelectedItem());
 		obdobieComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Obdobie>() {
 
 			@Override
@@ -61,9 +61,9 @@ public class StatistikaController extends Controller {
 			}
 		});
 
-		casTableColumn.setCellValueFactory(new PropertyValueFactory("cas_riesenia"));
-		idKrizovkyTableColumn.setCellValueFactory(new PropertyValueFactory("krizovka_id"));
-		pocetTahovTableColumn.setCellValueFactory(new PropertyValueFactory("pocet_tahov"));
+		nazovKrizovkyTableColumn.setCellValueFactory(new PropertyValueFactory("nazovKrizovky"));
+		casTableColumn.setCellValueFactory(new PropertyValueFactory("casRiesenia"));
+		pocetTahovTableColumn.setCellValueFactory(new PropertyValueFactory("pocetTahov"));
 
 		statistikaTableView.setItems(hry);
 	}

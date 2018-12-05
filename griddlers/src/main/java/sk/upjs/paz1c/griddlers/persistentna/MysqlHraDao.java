@@ -100,18 +100,20 @@ public class MysqlHraDao implements HraDao {
 			vybraneObdobie = "MONTH";
 			break;
 		}
-
-		String aktualnytimeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-		String sql = String.format("SELECT cas_riesenia, krizovka_id, pocet_tahov FROM Hra WHERE ukoncena = 1 AND "
-				+ "(SELECT TIMESTAMPDIFF(%s, \'koniec\', \'%s\') < 1)", vybraneObdobie, aktualnytimeStamp);
-		return jdbcTemplate.query(sql, new RowMapper<Hra>() {
+		
+		StringBuilder sql = new StringBuilder("SELECT h.cas_riesenia, k.nazov, h.pocet_tahov FROM Hra as h JOIN krizovka as k ON h.krizovka_id = k.id WHERE h.ukoncena = 1");
+		if(!obdobie.equals(Obdobie.VSETKY)) {
+			sql.append(String.format(" AND "+ "(SELECT TIMESTAMPDIFF(%s, h.koniec, now()) < 1)", vybraneObdobie));
+		}
+		
+		return jdbcTemplate.query(sql.toString(), new RowMapper<Hra>() {
 
 			@Override
 			public Hra mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Hra hra = new Hra();
-				hra.setCasRiesenia(rs.getInt("cas_riesenia"));
-				hra.setKrizovkaId(rs.getLong("krizovka_id"));
-				hra.setPocetTahov(rs.getInt("pocet_tahov"));
+				hra.setNazovKrizovky(rs.getString("k.nazov"));
+				hra.setCasRiesenia(rs.getInt("h.cas_riesenia"));
+				hra.setPocetTahov(rs.getInt("h.pocet_tahov"));
 				return hra;
 			}
 		});

@@ -8,6 +8,7 @@ public class Hra {
 	private Long id;
 	private int pocetTahov;
 	private Long krizovkaId;
+	private String nazovKrizovky;
 	private List<PolickoHry> polickaHry;
 	private int casRiesenia;
 	private boolean ukoncena;
@@ -31,8 +32,14 @@ public class Hra {
 	public Long getKrizovkaId() {
 		return krizovkaId;
 	}
+	public String getNazovKrizovky() {
+		return nazovKrizovky;
+	}
 	public void setKrizovkaId(Long krizovka) {
 		this.krizovkaId = krizovka;
+	}
+	public void setNazovKrizovky(String nazovKrizovky) {
+		this.nazovKrizovky = nazovKrizovky;
 	}
 	public List<PolickoHry> getPolickaHry() {
 		return polickaHry;

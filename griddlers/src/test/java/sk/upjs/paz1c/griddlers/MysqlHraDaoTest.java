@@ -33,30 +33,40 @@ class MysqlHraDaoTest {
 		hra.setZaciatok(LocalDateTime.of(2018, 11, 18, 18, 52));
 		hra.setPoslednyMedzicas(LocalDateTime.of(2018, 11, 18, 18, 59));
 		hra.setKoniec(LocalDateTime.of(2018, 11, 18, 19, 52));
-		hra.setKrizovkaId(2L);
-		// vytvorenie
+		hra.setKrizovkaId(34L);
 		hraDao.ulozit(hra);
 		assertNotNull(hra.getId());
 	}
 
-	// @Test
-	/*
-	 * void ulozitTest2() { Hra hra = new Hra(); hra.setPocetTahov(50);
-	 * hra.setKrizovkaId(5L); hra.setCasRiesenia(60); hra.setUkoncena(true);
-	 * hra.setZaciatok(LocalDateTime.of(2018, 11, 18, 18, 52));
-	 * hra.setPoslednyMedzicas(LocalDateTime.of(2018, 11, 18, 35, 52));
-	 * hra.setKoniec(LocalDateTime.of(2018, 11, 18, 19, 52)); hraDao.ulozit(hra); //
-	 * aktualizacia hra.setPocetTahov(55); hraDao.ulozit(hra); List<Hra> hry =
-	 * hraDao.getVsetky(); for (Hra hra1 : hry) { if (hra1.getId() == hra.getId()) {
-	 * assertEquals(55, hra.getPocetTahov()); hraDao.vymazat(hra1.getId()); return;
-	 * } } }
-	 */
+	@Test
+
+	void ulozitTest2() {
+		Hra hra = new Hra();
+		hra.setPocetTahov(50);
+		hra.setKrizovkaId(34L);
+		hra.setCasRiesenia(60);
+		hra.setUkoncena(true);
+		hra.setZaciatok(LocalDateTime.of(2018, 11, 18, 18, 52, 20));
+		hra.setPoslednyMedzicas(LocalDateTime.of(2018, 11, 18, 14, 52, 20));
+		hra.setKoniec(LocalDateTime.of(2018, 11, 18, 19, 52, 18));
+		hraDao.ulozit(hra);
+		hra.setPocetTahov(55);
+		hraDao.ulozit(hra);
+		List<Hra> hry = hraDao.getVsetky();
+		for (Hra hra1 : hry) {
+			if (hra1.getId() == hra.getId()) {
+				assertEquals(55, hra.getPocetTahov());
+				hraDao.vymazat(hra1.getId());
+				return;
+			}
+		}
+	}
 
 	@Test
 	void vymazatTest() {
 		Hra hra = new Hra();
 		hra.setPocetTahov(50);
-		hra.setKrizovkaId(1L);
+		hra.setKrizovkaId(34L);
 		hra.setCasRiesenia(60);
 		hra.setUkoncena(true);
 		hra.setZaciatok(LocalDateTime.of(2018, 11, 18, 18, 52));

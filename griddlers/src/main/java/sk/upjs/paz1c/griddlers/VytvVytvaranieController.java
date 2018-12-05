@@ -84,6 +84,8 @@ public class VytvVytvaranieController extends Controller {
 	@FXML
 	void handleResetButtonAction(ActionEvent event) {
 		manager.canvasReset(krizovkaCanvas);
+		manager.vyplnRiesenieFalse();
+		
 	}
 
 	@FXML
