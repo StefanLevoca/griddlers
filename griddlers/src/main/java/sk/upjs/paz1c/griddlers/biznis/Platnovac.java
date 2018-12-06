@@ -3,12 +3,13 @@ package sk.upjs.paz1c.griddlers.biznis;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import sk.upjs.paz1c.griddlers.VytvVytvaranieController;
 import sk.upjs.paz1c.griddlers.entity.Krizovka;
 
 public abstract class Platnovac {
 
-	private static final int VELKOST_POLICKA = VytvVytvaranieController.VELKOST_POLICKA;
+	protected static final int VELKOST_POLICKA = VytvVytvaranieController.VELKOST_POLICKA;
 
 	private Krizovka krizovka;
 
@@ -18,9 +19,10 @@ public abstract class Platnovac {
 	
 	// samopopisujuci nazov
 	public void vytvorMriezku(Canvas platno) {
-		int sirka = krizovka.getSirka() * VELKOST_POLICKA;
-		int vyska = krizovka.getVyska() * VELKOST_POLICKA;
+		double sirka = platno.getWidth();
+		double vyska = platno.getHeight();
 		GraphicsContext gc = platno.getGraphicsContext2D();
+		
 		double x1;
 		for (int i = 0; i <= (sirka / VELKOST_POLICKA); i++) {
 			x1 = i * VELKOST_POLICKA + 0.5;
