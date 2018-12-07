@@ -43,7 +43,6 @@ public class RiesenieController extends Controller {
 
 	private Krizovka krizovka;
 	private Hra hra;
-	private KrizovkaDao krizovkaDao = DaoFactory.INSTANCE.getKrizovkaDao();
 	private PolickoDao polickoDao = DaoFactory.INSTANCE.getPolickoDao();
 	private LegendaDao legendaDao = DaoFactory.INSTANCE.getLegendaDao();
 	private RiesenieManager manager;
@@ -66,11 +65,18 @@ public class RiesenieController extends Controller {
 		anchorPane.setPrefWidth(anchorPane.getPrefWidth() + (sirka - DEFAULT_VELKOST) * VELKOST_POLICKA);
 		krizovkaCanvas.setHeight(vyska * VELKOST_POLICKA);
 		krizovkaCanvas.setWidth(sirka * VELKOST_POLICKA);
+		int pocetPotrebnychL = manager.zistiPocetPotrebnych(false);
+		int pocetPotrebnychH = manager.zistiPocetPotrebnych(true);
+		System.out.println("h: " + pocetPotrebnychH + " l: "+ pocetPotrebnychL);
 		legendaLCanvas.setHeight(legendaLCanvas.getHeight() + (vyska - DEFAULT_VELKOST) * VELKOST_POLICKA);
+		legendaLCanvas.setWidth(pocetPotrebnychL * VELKOST_POLICKA);
 		legendaHCanvas.setWidth(legendaHCanvas.getWidth() + (sirka - DEFAULT_VELKOST) * VELKOST_POLICKA);
+		legendaHCanvas.setHeight(pocetPotrebnychH * VELKOST_POLICKA);
 		manager.vytvorMriezku(krizovkaCanvas);
 		manager.vytvorMriezku(legendaHCanvas, Color.rgb(0, 0, 0, 0.5));
 		manager.vytvorMriezku(legendaLCanvas, Color.rgb(0, 0, 0, 0.5));
+		manager.zobrazLegendu(legendaHCanvas, true);
+		manager.zobrazLegendu(legendaLCanvas, false);
 
 	}
 
@@ -84,6 +90,8 @@ public class RiesenieController extends Controller {
 	void handleCanvasOnPressedAction(MouseEvent event) {
 		List<PolickoHry> polickaHry = hra.getPolickaHry();
 		PolickoHry policko = manager.spracujKlik(event, krizovkaCanvas);
+		polickaHry.remove(policko);
+		polickaHry.add(policko);
 	}
 
 }

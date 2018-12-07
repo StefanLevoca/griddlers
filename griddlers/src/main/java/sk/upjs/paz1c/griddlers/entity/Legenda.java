@@ -21,6 +21,10 @@ public class Legenda {
 	
 	
 
+	public Legenda() {
+
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -94,6 +98,5 @@ public class Legenda {
 	public void setHodnota(int hodnota) {
 		this.hodnota = hodnota;
 	}
-	
 	
 }

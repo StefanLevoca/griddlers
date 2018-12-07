@@ -18,6 +18,36 @@ public class PolickoHry{
 		this(stav, surX, surY);
 		this.pozadovanyStav = pozadovanyStav;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idHry == null) ? 0 : idHry.hashCode());
+		result = prime * result + surX;
+		result = prime * result + surY;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PolickoHry other = (PolickoHry) obj;
+		if (idHry == null) {
+			if (other.idHry != null)
+				return false;
+		} else if (!idHry.equals(other.idHry))
+			return false;
+		if (surX != other.surX)
+			return false;
+		if (surY != other.surY)
+			return false;
+		return true;
+	}
 	public PolickoHry() {
 		
 	}
@@ -39,6 +69,7 @@ public class PolickoHry{
 	public void setStav(boolean stav) {
 		this.stav = stav;
 	}
+	
 	public int getSurX() {
 		return surX;
 	}

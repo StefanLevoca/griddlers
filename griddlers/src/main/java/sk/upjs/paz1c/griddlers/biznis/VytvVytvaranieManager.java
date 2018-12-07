@@ -115,7 +115,7 @@ public class VytvVytvaranieManager extends Platnovac{
 		for (int i = 0; i < riesenie.length; i++) {
 			List<Integer> hodnotyLegendy = riadokNaHodnoty(riesenie[i]);
 			for (int j = 0; j < hodnotyLegendy.size(); j++) {
-				Legenda polickoLegendy = new Legenda(horna, i, j, hodnotyLegendy.get(j));
+				Legenda polickoLegendy = new Legenda(horna, i, j, hodnotyLegendy.get(hodnotyLegendy.size() - j - 1));
 				legenda.add(polickoLegendy);
 			}
 		}
