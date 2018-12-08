@@ -1,5 +1,7 @@
 package sk.upjs.paz1c.griddlers;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import javafx.event.ActionEvent;
@@ -16,9 +18,8 @@ import sk.upjs.paz1c.griddlers.entity.Hra;
 import sk.upjs.paz1c.griddlers.entity.Krizovka;
 import sk.upjs.paz1c.griddlers.entity.PolickoHry;
 import sk.upjs.paz1c.griddlers.persistentna.DaoFactory;
-import sk.upjs.paz1c.griddlers.persistentna.KrizovkaDao;
-import sk.upjs.paz1c.griddlers.persistentna.LegendaDao;
-import sk.upjs.paz1c.griddlers.persistentna.PolickoDao;
+import sk.upjs.paz1c.griddlers.persistentna.HraDao;
+import sk.upjs.paz1c.griddlers.persistentna.PolickoHryDao;
 
 public class RiesenieController extends Controller {
 
@@ -45,18 +46,24 @@ public class RiesenieController extends Controller {
 
 	private Krizovka krizovka;
 	private Hra hra;
-	private PolickoDao polickoDao = DaoFactory.INSTANCE.getPolickoDao();
-	private LegendaDao legendaDao = DaoFactory.INSTANCE.getLegendaDao();
+	private HraDao hraDao = DaoFactory.INSTANCE.getHraDao();
+	private PolickoHryDao polickoHryDao = DaoFactory.INSTANCE.getPolickoHryDao();
 	private RiesenieManager manager;
 
 	public RiesenieController(Krizovka krizovka) {
-		this.hra = new Hra();
 		this.krizovka = krizovka;
-		this.krizovka.setRiesenie(polickoDao.getPodlaId(krizovka.getId()));
-		this.krizovka.setLegendaH(legendaDao.getHornaPodlaId(krizovka.getId()));
-		this.krizovka.setLegendaL(legendaDao.getLavaPodlaId(krizovka.getId()));
-		manager = new RiesenieManager(krizovka, hra);
-		hra.setPolickaHry(manager.inicializujPolickaHry());
+		this.hra = new Hra();
+		hra.setUkoncena(false);
+		hra.setKrizovkaId(krizovka.getId());
+		hra.setZaciatok(LocalDateTime.now(ZoneId.systemDefault()));
+		hra.setPoslednyMedzicas(hra.getZaciatok());
+		manager = new RiesenieManager(krizovka);
+		hra.setPolickaHry(manager.inicializujPolickaHry(hra.getId()));
+	}
+	
+	public RiesenieController(Hra hra) {
+		this.hra = hra;
+		this.krizovka = hraDao.getKrizovkaPodlaHraId(hra.getId());
 	}
 
 	@FXML
@@ -91,6 +98,7 @@ public class RiesenieController extends Controller {
 	void handleCanvasOnPressedAction(MouseEvent event) {
 		List<PolickoHry> polickaHry = hra.getPolickaHry();
 		PolickoHry policko = manager.spracujKlik(event, krizovkaCanvas);
+		hra.setPocetTahov(hra.getPocetTahov() + 1);
 		for(PolickoHry pol: polickaHry) {
 			if(pol.equals(policko)) {
 				pol.setStav(policko.getStav());
@@ -103,8 +111,25 @@ public class RiesenieController extends Controller {
 			alert.setContentText("Gratulujem, vyriešil si krížovku!");
 			alert.showAndWait();
 			krizovkaCanvas.setDisable(true);
+			hra.setUkoncena(true);
+			long casRiesenia = manager.casRiesenia(hra);
+			hra.setCasRiesenia(casRiesenia);
+			hra.setKoniec(LocalDateTime.now(ZoneId.systemDefault()));
+			hra.setPoslednyMedzicas(hra.getKoniec());
+			hraDao.ulozit(hra);
 		}
 	
+	}
+	
+	@FXML
+	void handleUlozButtonAction(ActionEvent event) {
+		long casRiesenia = manager.casRiesenia(hra);
+		hra.setCasRiesenia(casRiesenia);
+		hra.setPoslednyMedzicas(LocalDateTime.now(ZoneId.systemDefault()));
+		hraDao.ulozit(hra);
+		polickoHryDao.ulozit(hra.getPolickaHry());
+		
+		
 	}
 
 }

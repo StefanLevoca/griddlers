@@ -5,9 +5,12 @@ import java.util.List;
 import sk.upjs.paz1c.griddlers.entity.PolickoHry;
 
 public interface PolickoHryDao {
-	public List<PolickoHry> getVsetky();
+	
+	List<PolickoHry> getPodlaHraId(Long hraId);
 
 	PolickoHry ulozit(PolickoHry polickoHry);
 
-	void vymazat(long polickoHry_id);
+	void vymazat(Long hraId);
+
+	List<PolickoHry> ulozit(List<PolickoHry> polickaHry);
 }

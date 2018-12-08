@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import sk.upjs.paz1c.griddlers.entity.Hra;
+import sk.upjs.paz1c.griddlers.entity.Krizovka;
 import sk.upjs.paz1c.griddlers.entity.Obdobie;
 import sk.upjs.paz1c.griddlers.persistentna.DaoFactory;
 import sk.upjs.paz1c.griddlers.persistentna.HraDao;
@@ -83,9 +84,9 @@ class MysqlHraDaoTest {
 
 	@Test
 	void getPodlaObdobiaTest1() {
+		
 		List<Hra> zoznam = hraDao.getPodlaObdobia(Obdobie.DEN);
 		assertNotNull(zoznam);
-		assertTrue(zoznam.size() > 0);
 	}
 
 	@Test
@@ -100,5 +101,13 @@ class MysqlHraDaoTest {
 		List<Hra> zoznam = hraDao.getPodlaObdobia(Obdobie.MESIAC);
 		assertNotNull(zoznam);
 		assertTrue(zoznam.size() > 0);
+	}
+	
+	@Test
+	void getKrizovkaPodlaHraIdTest() {
+		Long hraId = 8L;
+		Krizovka krizovka = hraDao.getKrizovkaPodlaHraId(hraId);
+		System.out.println(krizovka.getId());
+		assertNotNull(krizovka);
 	}
 }

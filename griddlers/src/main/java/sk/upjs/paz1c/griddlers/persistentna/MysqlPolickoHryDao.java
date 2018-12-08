@@ -1,10 +1,14 @@
 package sk.upjs.paz1c.griddlers.persistentna;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import sk.upjs.paz1c.griddlers.entity.PolickoHry;
@@ -17,11 +21,15 @@ public class MysqlPolickoHryDao implements PolickoHryDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	public List<PolickoHry> getVsetky() {
-		// TODO
-		return null;
+	@Override
+	public List<PolickoHry> ulozit(List<PolickoHry> polickaHry) {
+		List<PolickoHry> policka = new ArrayList<>();
+		for(PolickoHry polHry: polickaHry) {
+			policka.add(ulozit(polHry));
+		}
+		return policka;
 	}
-
+	
 	@Override
 	public PolickoHry ulozit(PolickoHry polickoHry) {
 		if (polickoHry == null)
@@ -37,22 +45,39 @@ public class MysqlPolickoHryDao implements PolickoHryDao {
 			hodnoty.put("sur_y", polickoHry.getSurY());
 			hodnoty.put("stav", polickoHry.getStav());
 			hodnoty.put("pozadovany_stav", polickoHry.getPozadovanyStav());
-			hodnoty.put("hra_id", polickoHry.getIdKrizovky());
+			hodnoty.put("hra_id", polickoHry.getIdHry());
 			Long id = simpleJdbcInsert.executeAndReturnKey(hodnoty).longValue();
 			polickoHry.setId(id);
 		} else {
 			// AKTUALIZACIA
 			String sql = "UPDATE policko_hry SET sur_x = ?, sur_y = ?, stav = ?, pozadovany_stav = ?, hra_id = ? WHERE id = ?";
 			jdbcTemplate.update(sql, polickoHry.getSurX(), polickoHry.getSurY(), polickoHry.getStav(),
-					polickoHry.getPozadovanyStav(), polickoHry.getIdKrizovky(), polickoHry.getId());
+					polickoHry.getPozadovanyStav(), polickoHry.getIdHry(), polickoHry.getId());
 		}
 		return polickoHry;
 	}
 
 	@Override
-	public void vymazat(long polickoHry_id) {
-		String sql = String.format("DELETE FROM policko_hry WHERE id = %d", polickoHry_id);
-		jdbcTemplate.update(sql);
+	public void vymazat(Long hraId) {
+		String sql = "DELETE FROM policko_hry WHERE hra_id = ?";
+		jdbcTemplate.update(sql, hraId);
+	}
+
+	@Override
+	public List<PolickoHry> getPodlaHraId(Long hraId) {
+		String sql = "SELECT hra_id, stav, sur_x, sur_y, pozadovany_stav FROM policko_hry WHERE hra_id = ?";
+		return jdbcTemplate.query(sql, new Object[] {hraId}, new RowMapper<PolickoHry>() {
+
+			@Override
+			public PolickoHry mapRow(ResultSet rs, int row) throws SQLException {
+				Boolean stav = rs.getBoolean("stav");
+				int surX = rs.getInt("sur_x");
+				int surY = rs.getInt("sur_y");
+				boolean pozadovanyStav = rs.getBoolean("pozadovany_stav");
+				return new PolickoHry(stav, surX, surY, pozadovanyStav);
+			}
+		});
+	
 	}
 
 }

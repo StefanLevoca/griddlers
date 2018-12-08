@@ -1,14 +1,16 @@
 package sk.upjs.paz1c.griddlers.biznis;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.event.ActionEvent;
+
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import sk.upjs.paz1c.griddlers.entity.Hra;
 import sk.upjs.paz1c.griddlers.entity.Krizovka;
@@ -21,12 +23,10 @@ import sk.upjs.paz1c.griddlers.persistentna.LegendaDao;
 public class RiesenieManager extends Platnovac {
 
 	private Krizovka krizovka;
-	private Hra hra;
 	private LegendaDao legendaDao;
 
-	public RiesenieManager(Krizovka krizovka, Hra hra) {
+	public RiesenieManager(Krizovka krizovka) {
 		this.krizovka = krizovka;
-		this.hra = hra;
 		this.legendaDao = DaoFactory.INSTANCE.getLegendaDao();
 	}
 
@@ -67,12 +67,13 @@ public class RiesenieManager extends Platnovac {
 
 	// TODO napisat test
 	// nastavi sa pozadovany stav policok hry
-	public List<PolickoHry> inicializujPolickaHry() {
+	public List<PolickoHry> inicializujPolickaHry(Long idHry) {
 		List<PolickoHry> polickaHry = new ArrayList<>();
 		List<Policko> riesenie = krizovka.getRiesenie();
 		PolickoHry polickoHry;
 		for (Policko pol : riesenie) {
 			polickoHry = new PolickoHry(null, pol.getSurX(), pol.getSurY(), pol.getStav());
+			polickoHry.setIdHry(idHry);
 			polickaHry.add(polickoHry);
 		}
 		return polickaHry;
@@ -91,7 +92,8 @@ public class RiesenieManager extends Platnovac {
 		}
 
 	}
-
+	
+	
 	// pomocna metoda pri vytvarani legendy
 	private void vykresliLegendu(Canvas platno, Legenda polickoLegendy) {
 		int poradie = polickoLegendy.getPoradie();
@@ -119,7 +121,8 @@ public class RiesenieManager extends Platnovac {
 		}
 		gc.fillText(Integer.toString(hodnota), x1, y1);
 	}
-
+	
+	//TODO spravit test
 	// metoda na zistenie maximalneho poctu cisiel v jednom riadku/stlpci legendy
 	// (kvoli prisposobeniu okna)
 	public int zistiPocetPotrebnych(boolean horna) {
@@ -137,7 +140,7 @@ public class RiesenieManager extends Platnovac {
 		}
 		return maxPoradie + 1;
 	}
-	
+	//TODO spravit test
 	// metoda ktora sa vola pri kazdom kliku na krizovku a overuje ci uz nahodou krizovka nie je vyriesena
 	public boolean overRiesenie(List<PolickoHry> polickaHry) {
 		Boolean stav;
@@ -153,5 +156,13 @@ public class RiesenieManager extends Platnovac {
 		}
 		return true;
 	}
+
+	public long casRiesenia(Hra hra) {
+		long casRiesenia = hra.getCasRiesenia();
+		long sekundy = ChronoUnit.SECONDS.between(hra.getPoslednyMedzicas(), LocalDateTime.now(ZoneId.systemDefault()));
+		return casRiesenia + sekundy;
+	}
+
+	
 
 }

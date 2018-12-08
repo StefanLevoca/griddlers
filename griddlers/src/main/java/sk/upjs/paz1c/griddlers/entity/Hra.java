@@ -10,7 +10,7 @@ public class Hra {
 	private Long krizovkaId;
 	private String nazovKrizovky;
 	private List<PolickoHry> polickaHry;
-	private int casRiesenia;
+	private long casRiesenia;
 	private boolean ukoncena;
 	private LocalDateTime zaciatok;
 	private LocalDateTime medzicas;
@@ -47,10 +47,10 @@ public class Hra {
 	public void setPolickaHry(List<PolickoHry> polickaHry) {
 		this.polickaHry = polickaHry;
 	}
-	public int getCasRiesenia() {
+	public long getCasRiesenia() {
 		return casRiesenia;
 	}
-	public void setCasRiesenia(int casRiesenia) {
+	public void setCasRiesenia(long casRiesenia) {
 		this.casRiesenia = casRiesenia;
 	}
 	public boolean isUkoncena() {

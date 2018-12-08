@@ -102,6 +102,9 @@ public class MysqlKrizovkaDao implements KrizovkaDao {
 				krizovka.setSirka(rs.getInt("sirka"));
 				krizovka.setVyska(rs.getInt("vyska"));
 				krizovka.setNazov(rs.getString("nazov"));
+				krizovka.setRiesenie(polickoDao.getPodlaId(krizovka.getId()));
+				krizovka.setLegendaH(legendaDao.getHornaPodlaId(krizovka.getId()));
+				krizovka.setLegendaL(legendaDao.getLavaPodlaId(krizovka.getId()));
 				
 				return krizovka;
 			}

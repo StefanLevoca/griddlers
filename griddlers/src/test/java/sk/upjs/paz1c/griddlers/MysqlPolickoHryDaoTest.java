@@ -2,6 +2,7 @@ package sk.upjs.paz1c.griddlers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -15,61 +16,45 @@ class MysqlPolickoHryDaoTest {
 	private PolickoHryDao polickoHryDao = DaoFactory.INSTANCE.getPolickoHryDao();
 
 	@Test
-	void getVsetkyTest() {
-		List<PolickoHry> zoznam = polickoHryDao.getVsetky();
-		assertNotNull(zoznam);
-		assertTrue(zoznam.size() > 0);
-	}
-
-	@Test
 	void ulozitTest1() {
 		PolickoHry polickoHry = new PolickoHry();
-		polickoHry.setIdKrizovky(1L);
+		polickoHry.setIdHry(8L);
 		polickoHry.setStav(false);
 		polickoHry.setSurX(10);
 		polickoHry.setSurY(15);
 		polickoHry.setPozadovanyStav(false);
 		// vytvorenie
-		polickoHryDao.ulozit(polickoHry);
+		polickoHry = polickoHryDao.ulozit(polickoHry);
 		assertNotNull(polickoHry.getId());
 	}
-
+	
 	@Test
 	void ulozitTest2() {
-		PolickoHry polickoHry = new PolickoHry();
-		polickoHry.setIdKrizovky(1L);
-		polickoHry.setStav(false);
-		polickoHry.setSurX(10);
-		polickoHry.setSurY(15);
-		polickoHry.setPozadovanyStav(false);
-		polickoHryDao.ulozit(polickoHry);
-		// aktualizacia
-		polickoHry.setIdKrizovky(2L);
-		polickoHryDao.ulozit(polickoHry);
-		List<PolickoHry> polickaHry = polickoHryDao.getVsetky();
-		for (PolickoHry polickoHry1 : polickaHry) {
-			if (polickoHry1.getIdKrizovky() == polickoHry.getIdKrizovky()) {
-				assertEquals(polickoHry.getIdKrizovky(), polickoHry1.getIdKrizovky());
-				polickoHryDao.vymazat(polickoHry1.getId());
-				return;
-			}
-		}
+		PolickoHry pol1 = new PolickoHry(null, 10, 4, true);
+		pol1.setIdHry(8L);
+		PolickoHry pol2 = new PolickoHry(true, 5, 6, false);
+		pol2.setIdHry(8L);
+		List<PolickoHry> polickaHry = new ArrayList<>();
+		polickaHry.add(pol1);
+		polickaHry.add(pol2);
+		List<PolickoHry> policka = polickoHryDao.ulozit(polickaHry);
+		assertTrue(policka.size() == 2);
 	}
 
 	@Test
+	void getPodlaHraIdTest() {
+		List<PolickoHry> polickaHry = polickoHryDao.getPodlaHraId(8L);
+		assertNotNull(polickaHry);
+	}
+	
+	@Test
 	void vymazatTest() {
-		PolickoHry polickoHry = new PolickoHry();
-		polickoHry.setIdKrizovky(1L);
-		polickoHry.setStav(false);
-		polickoHry.setSurX(10);
-		polickoHry.setSurY(15);
-		polickoHry.setPozadovanyStav(false);
+		PolickoHry polickoHry = new PolickoHry(null, 10, 5, true);
+		polickoHry.setIdHry(8L);
 		polickoHryDao.ulozit(polickoHry);
-		Long id = polickoHry.getId();
-		polickoHryDao.vymazat(id);
-		List<PolickoHry> polickaHry = polickoHryDao.getVsetky();
-		for (PolickoHry polickoHry1 : polickaHry) {
-			assertNotEquals(id, polickoHry1.getId());
-		}
+		int velkostPred = polickoHryDao.getPodlaHraId(8L).size();
+		polickoHryDao.vymazat(8L);
+		int velkostPo = polickoHryDao.getPodlaHraId(8L).size();
+		assertTrue(velkostPred > velkostPo);
 	}
 }

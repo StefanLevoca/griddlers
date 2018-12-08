@@ -57,11 +57,11 @@ public class PolickoHry{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getIdKrizovky() {
+	public Long getIdHry() {
 		return idHry;
 	}
-	public void setIdKrizovky(Long idKrizovky) {
-		this.idHry = idKrizovky;
+	public void setIdHry(Long idHry) {
+		this.idHry = idHry;
 	}
 	public Boolean getStav() {
 		return stav;
