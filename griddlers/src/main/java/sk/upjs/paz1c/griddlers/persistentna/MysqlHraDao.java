@@ -3,8 +3,6 @@ package sk.upjs.paz1c.griddlers.persistentna;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +36,7 @@ public class MysqlHraDao implements HraDao {
 			public Hra mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Hra hra = new Hra();
 				hra.setId(rs.getLong("id"));
+				hra.setUkoncena(rs.getBoolean("ukoncena"));
 				hra.setPocetTahov(rs.getInt("pocet_tahov"));
 				hra.setCasRiesenia(rs.getInt("cas_riesenia"));
 
@@ -80,8 +79,8 @@ public class MysqlHraDao implements HraDao {
 			Long id = simpleJdbcInsert.executeAndReturnKey(hodnoty).longValue();
 			hra.setId(id);
 		}else {
-			String sql = "UPDATE hra SET pocet_tahov = ?, cas_riesenia = ?, ukoncena = ?, posledny_medzicas = ?, koniec = ?";
-			jdbcTemplate.update(sql, hra.getPocetTahov(), hra.getCasRiesenia(), hra.isUkoncena(), hra.getPoslednyMedzicas(), hra.getKoniec());
+			String sql = "UPDATE hra SET pocet_tahov = ?, cas_riesenia = ?, ukoncena = ?, posledny_medzicas = ?, koniec = ? WHERE id = ?";
+			jdbcTemplate.update(sql, hra.getPocetTahov(), hra.getCasRiesenia(), hra.isUkoncena(), hra.getPoslednyMedzicas(), hra.getKoniec(), hra.getId());
 		}
 		return hra;
 	}

@@ -16,7 +16,6 @@ public abstract class Platnovac {
 		double sirka = platno.getWidth();
 		double vyska = platno.getHeight();
 		GraphicsContext gc = platno.getGraphicsContext2D();
-		
 		double x1;
 		for (int i = 0; i <= (sirka / VELKOST_POLICKA); i++) {
 			x1 = i * VELKOST_POLICKA + 0.5;

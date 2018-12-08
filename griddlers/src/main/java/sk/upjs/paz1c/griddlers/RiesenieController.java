@@ -53,21 +53,26 @@ public class RiesenieController extends Controller {
 	public RiesenieController(Krizovka krizovka) {
 		this.krizovka = krizovka;
 		this.hra = new Hra();
-		hra.setUkoncena(false);
 		hra.setKrizovkaId(krizovka.getId());
 		hra.setZaciatok(LocalDateTime.now(ZoneId.systemDefault()));
 		hra.setPoslednyMedzicas(hra.getZaciatok());
 		manager = new RiesenieManager(krizovka);
-		hra.setPolickaHry(manager.inicializujPolickaHry(hra.getId()));
+		hra.setPolickaHry(manager.inicializujPolickaHry());
 	}
 	
 	public RiesenieController(Hra hra) {
 		this.hra = hra;
+		hra.setPolickaHry(polickoHryDao.getPodlaHraId(hra.getId()));
 		this.krizovka = hraDao.getKrizovkaPodlaHraId(hra.getId());
+		manager = new RiesenieManager(krizovka);
+		
 	}
 
 	@FXML
 	void initialize() {
+		if(hra.getId() != null) {
+			manager.obnovPlatno(krizovkaCanvas, hra);
+		}
 		int sirka = krizovka.getSirka();
 		int vyska = krizovka.getVyska();
 		anchorPane.setPrefHeight(anchorPane.getPrefHeight() + (vyska - DEFAULT_VELKOST) * VELKOST_POLICKA);
@@ -126,10 +131,12 @@ public class RiesenieController extends Controller {
 		long casRiesenia = manager.casRiesenia(hra);
 		hra.setCasRiesenia(casRiesenia);
 		hra.setPoslednyMedzicas(LocalDateTime.now(ZoneId.systemDefault()));
-		hraDao.ulozit(hra);
+		hra.setId(hraDao.ulozit(hra).getId());
+		for(PolickoHry pol: hra.getPolickaHry()) {
+			pol.setIdHry(hra.getId());
+		}
 		polickoHryDao.ulozit(hra.getPolickaHry());
-		
-		
+			hra.setPolickaHry(polickoHryDao.getPodlaHraId(hra.getId()));		
 	}
 
 }

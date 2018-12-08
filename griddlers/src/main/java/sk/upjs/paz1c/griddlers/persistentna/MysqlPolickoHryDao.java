@@ -24,12 +24,12 @@ public class MysqlPolickoHryDao implements PolickoHryDao {
 	@Override
 	public List<PolickoHry> ulozit(List<PolickoHry> polickaHry) {
 		List<PolickoHry> policka = new ArrayList<>();
-		for(PolickoHry polHry: polickaHry) {
+		for (PolickoHry polHry : polickaHry) {
 			policka.add(ulozit(polHry));
 		}
 		return policka;
 	}
-	
+
 	@Override
 	public PolickoHry ulozit(PolickoHry polickoHry) {
 		if (polickoHry == null)
@@ -50,9 +50,8 @@ public class MysqlPolickoHryDao implements PolickoHryDao {
 			polickoHry.setId(id);
 		} else {
 			// AKTUALIZACIA
-			String sql = "UPDATE policko_hry SET sur_x = ?, sur_y = ?, stav = ?, pozadovany_stav = ?, hra_id = ? WHERE id = ?";
-			jdbcTemplate.update(sql, polickoHry.getSurX(), polickoHry.getSurY(), polickoHry.getStav(),
-					polickoHry.getPozadovanyStav(), polickoHry.getIdHry(), polickoHry.getId());
+			String sql = "UPDATE policko_hry SET stav = ? WHERE id = ?";
+			jdbcTemplate.update(sql, polickoHry.getStav(), polickoHry.getId());
 		}
 		return polickoHry;
 	}
@@ -65,19 +64,25 @@ public class MysqlPolickoHryDao implements PolickoHryDao {
 
 	@Override
 	public List<PolickoHry> getPodlaHraId(Long hraId) {
-		String sql = "SELECT hra_id, stav, sur_x, sur_y, pozadovany_stav FROM policko_hry WHERE hra_id = ?";
-		return jdbcTemplate.query(sql, new Object[] {hraId}, new RowMapper<PolickoHry>() {
+		String sql = "SELECT id, hra_id, stav, sur_x, sur_y, pozadovany_stav FROM policko_hry WHERE hra_id = ?";
+		return jdbcTemplate.query(sql, new Object[] { hraId }, new RowMapper<PolickoHry>() {
 
 			@Override
 			public PolickoHry mapRow(ResultSet rs, int row) throws SQLException {
+				Long id = rs.getLong("id");
 				Boolean stav = rs.getBoolean("stav");
+				if(rs.wasNull()) {
+					stav = null;
+				}	
 				int surX = rs.getInt("sur_x");
 				int surY = rs.getInt("sur_y");
 				boolean pozadovanyStav = rs.getBoolean("pozadovany_stav");
-				return new PolickoHry(stav, surX, surY, pozadovanyStav);
+				PolickoHry policko = new PolickoHry(stav, surX, surY, pozadovanyStav);
+				policko.setId(id);
+				return policko;
 			}
 		});
-	
+
 	}
 
 }

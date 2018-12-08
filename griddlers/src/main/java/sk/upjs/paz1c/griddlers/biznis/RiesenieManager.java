@@ -67,13 +67,12 @@ public class RiesenieManager extends Platnovac {
 
 	// TODO napisat test
 	// nastavi sa pozadovany stav policok hry
-	public List<PolickoHry> inicializujPolickaHry(Long idHry) {
+	public List<PolickoHry> inicializujPolickaHry() {
 		List<PolickoHry> polickaHry = new ArrayList<>();
 		List<Policko> riesenie = krizovka.getRiesenie();
 		PolickoHry polickoHry;
 		for (Policko pol : riesenie) {
 			polickoHry = new PolickoHry(null, pol.getSurX(), pol.getSurY(), pol.getStav());
-			polickoHry.setIdHry(idHry);
 			polickaHry.add(polickoHry);
 		}
 		return polickaHry;
@@ -91,6 +90,22 @@ public class RiesenieManager extends Platnovac {
 			vykresliLegendu(platno, polickoLegendy);
 		}
 
+	}
+	
+	public void obnovPlatno(Canvas platno, Hra hra) {
+		List<PolickoHry> polickaHry = hra.getPolickaHry();
+		GraphicsContext gc = platno.getGraphicsContext2D();
+		double x1;
+		double y1;
+		for(PolickoHry polickoHry: polickaHry) {
+			x1 = polickoHry.getSurX() * VELKOST_POLICKA;
+			y1 = polickoHry.getSurY() * VELKOST_POLICKA;
+			if(polickoHry.getStav() != null && polickoHry.getStav() == true) {
+				kresliStvorec(gc, x1, y1, Color.BLACK);
+			}else if(polickoHry.getStav() != null && polickoHry.getStav() == false) {
+				kresliBodku(gc, x1, y1);
+			}
+		}
 	}
 	
 	
