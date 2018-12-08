@@ -10,12 +10,6 @@ import sk.upjs.paz1c.griddlers.entity.Krizovka;
 public abstract class Platnovac {
 
 	protected static final int VELKOST_POLICKA = VytvVytvaranieController.VELKOST_POLICKA;
-
-	private Krizovka krizovka;
-
-	public Platnovac(Krizovka krizovka) {
-		this.krizovka = krizovka;
-	}
 	
 	// samopopisujuci nazov
 	public void vytvorMriezku(Canvas platno) {
@@ -77,4 +71,6 @@ public abstract class Platnovac {
 			gc.setFill(Color.BLACK);
 			gc.fillOval(surX - 2, surY - 2, 4, 4);
 		}
+		
+		
 }

@@ -5,7 +5,9 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -53,7 +55,7 @@ public class RiesenieController extends Controller {
 		this.krizovka.setRiesenie(polickoDao.getPodlaId(krizovka.getId()));
 		this.krizovka.setLegendaH(legendaDao.getHornaPodlaId(krizovka.getId()));
 		this.krizovka.setLegendaL(legendaDao.getLavaPodlaId(krizovka.getId()));
-		manager = new RiesenieManager(krizovka);
+		manager = new RiesenieManager(krizovka, hra);
 		hra.setPolickaHry(manager.inicializujPolickaHry());
 	}
 
@@ -67,7 +69,6 @@ public class RiesenieController extends Controller {
 		krizovkaCanvas.setWidth(sirka * VELKOST_POLICKA);
 		int pocetPotrebnychL = manager.zistiPocetPotrebnych(false);
 		int pocetPotrebnychH = manager.zistiPocetPotrebnych(true);
-		System.out.println("h: " + pocetPotrebnychH + " l: "+ pocetPotrebnychL);
 		legendaLCanvas.setHeight(legendaLCanvas.getHeight() + (vyska - DEFAULT_VELKOST) * VELKOST_POLICKA);
 		legendaLCanvas.setWidth(pocetPotrebnychL * VELKOST_POLICKA);
 		legendaHCanvas.setWidth(legendaHCanvas.getWidth() + (sirka - DEFAULT_VELKOST) * VELKOST_POLICKA);
@@ -90,8 +91,20 @@ public class RiesenieController extends Controller {
 	void handleCanvasOnPressedAction(MouseEvent event) {
 		List<PolickoHry> polickaHry = hra.getPolickaHry();
 		PolickoHry policko = manager.spracujKlik(event, krizovkaCanvas);
-		polickaHry.remove(policko);
-		polickaHry.add(policko);
+		for(PolickoHry pol: polickaHry) {
+			if(pol.equals(policko)) {
+				pol.setStav(policko.getStav());
+			}
+		}
+		if (manager.overRiesenie(polickaHry)) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Výhra");
+			alert.setHeaderText("Gratulujem!");
+			alert.setContentText("Gratulujem, vyriešil si krížovku!");
+			alert.showAndWait();
+			krizovkaCanvas.setDisable(true);
+		}
+	
 	}
 
 }

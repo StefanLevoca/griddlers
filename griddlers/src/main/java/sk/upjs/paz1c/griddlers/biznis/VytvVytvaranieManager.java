@@ -21,7 +21,6 @@ public class VytvVytvaranieManager extends Platnovac{
 	private Krizovka krizovka;
 
 	public VytvVytvaranieManager(Krizovka krizovka) {
-		super(krizovka);
 		this.krizovka = krizovka;
 	}
 

@@ -36,7 +36,7 @@ public class MysqlPolickoHryDao implements PolickoHryDao {
 			hodnoty.put("sur_x", polickoHry.getSurX());
 			hodnoty.put("sur_y", polickoHry.getSurY());
 			hodnoty.put("stav", polickoHry.getStav());
-			hodnoty.put("pozadovany_stav", polickoHry.isPozadovanyStav());
+			hodnoty.put("pozadovany_stav", polickoHry.getPozadovanyStav());
 			hodnoty.put("hra_id", polickoHry.getIdKrizovky());
 			Long id = simpleJdbcInsert.executeAndReturnKey(hodnoty).longValue();
 			polickoHry.setId(id);
@@ -44,7 +44,7 @@ public class MysqlPolickoHryDao implements PolickoHryDao {
 			// AKTUALIZACIA
 			String sql = "UPDATE policko_hry SET sur_x = ?, sur_y = ?, stav = ?, pozadovany_stav = ?, hra_id = ? WHERE id = ?";
 			jdbcTemplate.update(sql, polickoHry.getSurX(), polickoHry.getSurY(), polickoHry.getStav(),
-					polickoHry.isPozadovanyStav(), polickoHry.getIdKrizovky(), polickoHry.getId());
+					polickoHry.getPozadovanyStav(), polickoHry.getIdKrizovky(), polickoHry.getId());
 		}
 		return polickoHry;
 	}

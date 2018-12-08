@@ -4,17 +4,17 @@ public class PolickoHry{
 		
 	private Long id;
 	private Long idHry;
-	private boolean stav;
+	private Boolean stav;
 	private int surX;
 	private int surY;
 	private boolean pozadovanyStav;
 	
-	public PolickoHry(boolean stav, int surX, int surY) {
+	public PolickoHry(Boolean stav, int surX, int surY) {
 		this.stav = stav;
 		this.surX = surX;
 		this.surY = surY;
 	}
-	public PolickoHry(boolean stav, int surX, int surY, boolean pozadovanyStav) {
+	public PolickoHry(Boolean stav, int surX, int surY, boolean pozadovanyStav) {
 		this(stav, surX, surY);
 		this.pozadovanyStav = pozadovanyStav;
 	}
@@ -63,10 +63,10 @@ public class PolickoHry{
 	public void setIdKrizovky(Long idKrizovky) {
 		this.idHry = idKrizovky;
 	}
-	public boolean getStav() {
+	public Boolean getStav() {
 		return stav;
 	}
-	public void setStav(boolean stav) {
+	public void setStav(Boolean stav) {
 		this.stav = stav;
 	}
 	
@@ -82,7 +82,7 @@ public class PolickoHry{
 	public void setSurY(int surY) {
 		this.surY = surY;
 	}
-	public boolean isPozadovanyStav() {
+	public boolean getPozadovanyStav() {
 		return pozadovanyStav;
 	}
 	public void setPozadovanyStav(boolean pozadovanyStav) {

@@ -67,7 +67,6 @@ public class VytvVytvaranieController extends Controller {
 	void handleUlozButtonAction(ActionEvent event) {
 		if(manager.mozeUlozit()) {
 			Controller controller = new UvodnaObrazovkaController();
-			System.out.println("Moze");
 			krizovka.setLegendaH(manager.vytvorLegenduH());
 			krizovka.setLegendaL(manager.vytvorLegenduL());
 			krizovkaDao.ulozit(krizovka);
@@ -91,7 +90,7 @@ public class VytvVytvaranieController extends Controller {
 
 	@FXML
 	void handleSpatButtonAction(ActionEvent event) {
-		VytvZadanieVstupovController mainController = new VytvZadanieVstupovController();
+		Controller mainController = new VytvZadanieVstupovController();
 		novaScena(mainController, "vytv_zadanie_vst.fxml", spatButton);
 	}
 

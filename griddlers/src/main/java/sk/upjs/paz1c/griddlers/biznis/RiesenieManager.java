@@ -10,6 +10,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
+import sk.upjs.paz1c.griddlers.entity.Hra;
 import sk.upjs.paz1c.griddlers.entity.Krizovka;
 import sk.upjs.paz1c.griddlers.entity.Legenda;
 import sk.upjs.paz1c.griddlers.entity.Policko;
@@ -20,14 +21,16 @@ import sk.upjs.paz1c.griddlers.persistentna.LegendaDao;
 public class RiesenieManager extends Platnovac {
 
 	private Krizovka krizovka;
+	private Hra hra;
 	private LegendaDao legendaDao;
 
-	public RiesenieManager(Krizovka krizovka) {
-		super(krizovka);
+	public RiesenieManager(Krizovka krizovka, Hra hra) {
 		this.krizovka = krizovka;
+		this.hra = hra;
 		this.legendaDao = DaoFactory.INSTANCE.getLegendaDao();
 	}
 
+	// metoda urcena na vytvaranie mriezky legendy
 	public void vytvorMriezku(Canvas platno, Color farba) {
 		double sirka = platno.getWidth();
 		double vyska = platno.getHeight();
@@ -42,6 +45,9 @@ public class RiesenieManager extends Platnovac {
 		}
 	}
 
+	// metoda ktora spracuje stlacenie tlacidla a vrati objekt triedy polickoHry
+	// ktore
+	// nasledne spracuje metoda v controlleri
 	public PolickoHry spracujKlik(MouseEvent event, Canvas platno) {
 		int x1 = (int) (event.getX() / VELKOST_POLICKA);
 		int y1 = (int) (event.getY() / VELKOST_POLICKA);
@@ -50,7 +56,7 @@ public class RiesenieManager extends Platnovac {
 			return new PolickoHry(true, x1, y1);
 		} else if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
 			kresliStvorec(platno.getGraphicsContext2D(), x1 * VELKOST_POLICKA, y1 * VELKOST_POLICKA, Color.WHITE);
-			return new PolickoHry(false, x1, y1);
+			return new PolickoHry(null, x1, y1);
 		} else if (event.getButton().equals(MouseButton.SECONDARY)) {
 			kresliBodku(platno.getGraphicsContext2D(), x1 * VELKOST_POLICKA, y1 * VELKOST_POLICKA);
 			return new PolickoHry(false, x1, y1);
@@ -60,17 +66,19 @@ public class RiesenieManager extends Platnovac {
 	}
 
 	// TODO napisat test
+	// nastavi sa pozadovany stav policok hry
 	public List<PolickoHry> inicializujPolickaHry() {
 		List<PolickoHry> polickaHry = new ArrayList<>();
 		List<Policko> riesenie = krizovka.getRiesenie();
 		PolickoHry polickoHry;
 		for (Policko pol : riesenie) {
-			polickoHry = new PolickoHry(false, pol.getSurX(), pol.getSurY(), pol.getStav());
+			polickoHry = new PolickoHry(null, pol.getSurX(), pol.getSurY(), pol.getStav());
 			polickaHry.add(polickoHry);
 		}
 		return polickaHry;
 	}
 
+	// metoda ktora vykresli legendu
 	public void zobrazLegendu(Canvas platno, boolean horna) {
 		List<Legenda> legenda;
 		if (horna) {
@@ -79,12 +87,13 @@ public class RiesenieManager extends Platnovac {
 			legenda = legendaDao.getLavaPodlaId(krizovka.getId());
 		}
 		for (Legenda polickoLegendy : legenda) {
-			vykresli(platno, polickoLegendy);
+			vykresliLegendu(platno, polickoLegendy);
 		}
 
 	}
 
-	private void vykresli(Canvas platno, Legenda polickoLegendy) {
+	// pomocna metoda pri vytvarani legendy
+	private void vykresliLegendu(Canvas platno, Legenda polickoLegendy) {
 		int poradie = polickoLegendy.getPoradie();
 		int riadokStlpec = polickoLegendy.getRiadokStlpec();
 		int hodnota = polickoLegendy.getHodnota();
@@ -111,6 +120,8 @@ public class RiesenieManager extends Platnovac {
 		gc.fillText(Integer.toString(hodnota), x1, y1);
 	}
 
+	// metoda na zistenie maximalneho poctu cisiel v jednom riadku/stlpci legendy
+	// (kvoli prisposobeniu okna)
 	public int zistiPocetPotrebnych(boolean horna) {
 		List<Legenda> legenda;
 		if (horna) {
@@ -125,6 +136,22 @@ public class RiesenieManager extends Platnovac {
 			}
 		}
 		return maxPoradie + 1;
+	}
+	
+	// metoda ktora sa vola pri kazdom kliku na krizovku a overuje ci uz nahodou krizovka nie je vyriesena
+	public boolean overRiesenie(List<PolickoHry> polickaHry) {
+		Boolean stav;
+		boolean pozadovanyStav;
+		for (PolickoHry pol : polickaHry) {
+			stav = pol.getStav();
+			pozadovanyStav = pol.getPozadovanyStav();
+			if((stav == null || stav == false) && pozadovanyStav != false) {
+				return false;
+			}else if ((stav != null && stav == true) && pozadovanyStav != true) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
