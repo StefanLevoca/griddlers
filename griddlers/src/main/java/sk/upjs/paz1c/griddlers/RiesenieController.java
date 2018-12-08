@@ -116,12 +116,14 @@ public class RiesenieController extends Controller {
 			alert.setContentText("Gratulujem, vyriešil si krížovku!");
 			alert.showAndWait();
 			krizovkaCanvas.setDisable(true);
+			ulozButton.setDisable(true);
 			hra.setUkoncena(true);
 			long casRiesenia = manager.casRiesenia(hra);
 			hra.setCasRiesenia(casRiesenia);
 			hra.setKoniec(LocalDateTime.now(ZoneId.systemDefault()));
 			hra.setPoslednyMedzicas(hra.getKoniec());
-			hraDao.ulozit(hra);
+			hra.setId(hraDao.ulozit(hra).getId());
+			polickoHryDao.vymazat(hra.getId());
 		}
 	
 	}
