@@ -37,6 +37,9 @@ public class VytvZadanieVstupovController extends Controller{
 
 	@FXML
 	void initialize() {
+		spatButton.getStyleClass().setAll("btn","btn-danger");
+		zacatButton.getStyleClass().setAll("btn","btn-primary");
+		
 		ObservableList<Integer> sirkaVyska = FXCollections.observableArrayList(15,20,25,30,35,40,45,50,55,60);
 		sirkaComboBox.setItems(sirkaVyska);
 		vyskaComboBox.setItems(sirkaVyska);		
@@ -50,9 +53,6 @@ public class VytvZadanieVstupovController extends Controller{
 		narocnostComboBox.getSelectionModel().selectFirst();
 		vyskaComboBox.getSelectionModel().selectFirst();
 		sirkaComboBox.getSelectionModel().selectFirst();
-		
-		
-
 	}
 
 	@FXML

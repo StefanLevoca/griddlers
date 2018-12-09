@@ -1,7 +1,5 @@
 package sk.upjs.paz1c.griddlers;
 
-
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +25,11 @@ public class UvodnaObrazovkaController extends Controller{
 
 	@FXML
 	public void initialize() {
-
+		statistikaButton.getStyleClass().setAll("btn","btn-success");
+		novaButton.getStyleClass().setAll("btn","btn-default");
+		koniecButton.getStyleClass().setAll("btn","btn-primary");
+		pokracovatButton.getStyleClass().setAll("btn","btn-info");
+		vlastnaButton.getStyleClass().setAll("btn","btn-warning");
 	}
 
 	@FXML
@@ -59,10 +61,6 @@ public class UvodnaObrazovkaController extends Controller{
 		StatistikaController controller = new StatistikaController();
 		novaScena(controller, "statistika.fxml", statistikaButton);
 	}
-	
-	
-	
-
 }
 
 	

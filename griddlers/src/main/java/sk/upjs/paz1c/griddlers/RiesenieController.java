@@ -70,6 +70,9 @@ public class RiesenieController extends Controller {
 
 	@FXML
 	void initialize() {
+		spatButton.getStyleClass().setAll("btn", "btn-danger");
+		ulozButton.getStyleClass().setAll("btn", "btn-success");
+		
 		if(hra.getId() != null) {
 			manager.obnovPlatno(krizovkaCanvas, hra);
 		}

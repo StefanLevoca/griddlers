@@ -1,6 +1,7 @@
 package sk.upjs.paz1c.griddlers;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,6 +34,9 @@ public class StatistikaController extends Controller {
 	private TableColumn<Hra, Integer> pocetTahovTableColumn;
 
 	@FXML
+	private TableColumn<Hra, LocalDateTime> datumUkonceniaTableColumn;
+
+	@FXML
 	private ComboBox<Obdobie> obdobieComboBox;
 
 	@FXML
@@ -47,6 +52,8 @@ public class StatistikaController extends Controller {
 
 	@FXML
 	void initialize() {
+		spatButton.getStyleClass().setAll("btn", "btn-danger");
+
 		ObservableList<Obdobie> obdobia = FXCollections.observableArrayList(Obdobie.VSETKY, Obdobie.DEN, Obdobie.TYZDEN,
 				Obdobie.MESIAC);
 		obdobieComboBox.setItems(obdobia);
@@ -61,9 +68,44 @@ public class StatistikaController extends Controller {
 			}
 		});
 
-		nazovKrizovkyTableColumn.setCellValueFactory(new PropertyValueFactory("nazovKrizovky"));
-		casTableColumn.setCellValueFactory(new PropertyValueFactory("casRiesenia"));
-		pocetTahovTableColumn.setCellValueFactory(new PropertyValueFactory("pocetTahov"));
+		nazovKrizovkyTableColumn.setCellValueFactory(new PropertyValueFactory<Hra, String>("nazovKrizovky"));
+		//casTableColumn.setCellValueFactory(new PropertyValueFactory<Hra, LocalDateTime>("casRiesenia"));
+		
+		TableColumn<Hra, LocalDateTime> casTableColumn = new TableColumn<>("casRiesenia");
+		casTableColumn.setCellValueFactory(new PropertyValueFactory<Hra, LocalDateTime>("casRiesenia"));
+		casTableColumn.setCellFactory((TableColumn<Hra, LocalDateTime> column) -> {
+			return new TableCell<Hra, LocalDateTime>() {
+				@Override
+				protected void updateItem(LocalDateTime item, boolean empty) {
+					super.updateItem(item, empty);
+					if (item == null || empty) {
+						setText(null);
+					} else {
+						setText(item.format(DateTimeFormatter.ofPattern("HH.mm.ss")));
+					}
+				}
+			};
+		});
+
+		pocetTahovTableColumn.setCellValueFactory(new PropertyValueFactory<Hra, Integer>("pocetTahov"));
+		// datumUkonceniaTableColumn.setCellValueFactory(new PropertyValueFactory<Hra,
+		// LocalDateTime>("koniec"));
+
+		TableColumn<Hra, LocalDateTime> datumUkonceniaTableColumn = new TableColumn<>("koniec");
+		datumUkonceniaTableColumn.setCellValueFactory(new PropertyValueFactory<Hra, LocalDateTime>("koniec"));
+		datumUkonceniaTableColumn.setCellFactory((TableColumn<Hra, LocalDateTime> column) -> {
+			return new TableCell<Hra, LocalDateTime>() {
+				@Override
+				protected void updateItem(LocalDateTime item, boolean empty) {
+					super.updateItem(item, empty);
+					if (item == null || empty) {
+						setText(null);
+					} else {
+						setText(item.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+					}
+				}
+			};
+		});
 
 		statistikaTableView.setItems(hry);
 	}

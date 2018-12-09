@@ -27,6 +27,7 @@ public class App extends Application
 		primaryStage.setResizable(false);
 		
 		Scene scene = new Scene(rootPane);
+		scene.getStylesheets().add("org/kordamp/bootstrapfx/bootstrapfx.css");
 		primaryStage.setTitle("Griddlers");
 		primaryStage.setScene(scene);
 		primaryStage.show();

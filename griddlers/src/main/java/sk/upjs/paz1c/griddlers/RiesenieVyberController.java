@@ -1,7 +1,5 @@
 package sk.upjs.paz1c.griddlers;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -61,6 +59,9 @@ public class RiesenieVyberController extends Controller {
 
 	@FXML
 	void initialize() {
+		spatButton.getStyleClass().setAll("btn", "btn-danger");
+		potvrdButton.getStyleClass().setAll("btn", "btn-primary");
+
 		ObservableList<Narocnost> narocnosti = FXCollections.observableArrayList(Narocnost.LAHKA, Narocnost.STREDNA,
 				Narocnost.TAZKA);
 		narocnostComboBox.setItems(narocnosti);
@@ -78,21 +79,21 @@ public class RiesenieVyberController extends Controller {
 			}
 
 		});
-		
+
 		krizovkyTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Krizovka>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Krizovka> observable, Krizovka oldValue, Krizovka newValue) {
 				krizovka = newValue;
-				
+
 			}
 		});
 
-		idTableColumn.setCellValueFactory(new PropertyValueFactory("id"));
-		narocnostTableColumn.setCellValueFactory(new PropertyValueFactory("narocnost"));
-		sirkaTableColumn.setCellValueFactory(new PropertyValueFactory("sirka"));
-		vyskaTableColumn.setCellValueFactory(new PropertyValueFactory("vyska"));
-		nazovTableColumn.setCellValueFactory(new PropertyValueFactory("nazov"));
+		idTableColumn.setCellValueFactory(new PropertyValueFactory<Krizovka, Long>("id"));
+		narocnostTableColumn.setCellValueFactory(new PropertyValueFactory<Krizovka, Narocnost>("narocnost"));
+		sirkaTableColumn.setCellValueFactory(new PropertyValueFactory<Krizovka, Integer>("sirka"));
+		vyskaTableColumn.setCellValueFactory(new PropertyValueFactory<Krizovka, Integer>("vyska"));
+		nazovTableColumn.setCellValueFactory(new PropertyValueFactory<Krizovka, String>("nazov"));
 		nazovTableColumn.setVisible(false);
 		krizovkyTableView.setItems(krizovky);
 		krizovkyTableView.getSelectionModel().selectFirst();

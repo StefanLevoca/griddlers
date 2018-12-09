@@ -10,7 +10,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import sk.upjs.paz1c.griddlers.biznis.VytvVytvaranieManager;
 import sk.upjs.paz1c.griddlers.entity.Krizovka;
 import sk.upjs.paz1c.griddlers.entity.Policko;
@@ -55,6 +54,9 @@ public class VytvVytvaranieController extends Controller {
 
 	@FXML
 	void initialize() {
+		spatButton.getStyleClass().setAll("btn", "btn-danger");
+		ulozButton.getStyleClass().setAll("btn", "btn-warning");
+		resetButton.getStyleClass().setAll("btn", "btn-primary");
 
 		krizovkaCanvas.setHeight(vyska * VELKOST_POLICKA);
 		krizovkaCanvas.setWidth(sirka * VELKOST_POLICKA);
@@ -62,30 +64,30 @@ public class VytvVytvaranieController extends Controller {
 		borderPane.setPrefHeight(borderPane.getPrefHeight() + VELKOST_POLICKA * (vyska - DEFAULT_VELKOST));
 		manager.vytvorMriezku(krizovkaCanvas);
 	}
-	
+
 	@FXML
 	void handleUlozButtonAction(ActionEvent event) {
-		if(manager.mozeUlozit()) {
+		if (manager.mozeUlozit()) {
 			Controller controller = new UvodnaObrazovkaController();
 			krizovka.setLegendaH(manager.vytvorLegenduH());
 			krizovka.setLegendaL(manager.vytvorLegenduL());
 			krizovkaDao.ulozit(krizovka);
 			novaScena(controller, "uvodna_obr.fxml", ulozButton);
-		}else {
+		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Upozornenie");
 			alert.setHeaderText("Upozornenie");
 			alert.setContentText("Nesprávne vyplnenie krížovky");
 			alert.showAndWait();
 		}
-		
+
 	}
 
 	@FXML
 	void handleResetButtonAction(ActionEvent event) {
 		manager.canvasReset(krizovkaCanvas);
 		manager.vyplnRiesenieFalse();
-		
+
 	}
 
 	@FXML
@@ -94,11 +96,10 @@ public class VytvVytvaranieController extends Controller {
 		novaScena(mainController, "vytv_zadanie_vst.fxml", spatButton);
 	}
 
-	
 	@FXML
-    void canvasOnMousePressed(MouseEvent event) {
+	void canvasOnMousePressed(MouseEvent event) {
 		Policko policko = manager.spracujKlik(event, krizovkaCanvas);
-		riesenie.remove(policko); //pretoze equals testuje surX a surY
-		riesenie.add(policko);		
-    }
+		riesenie.remove(policko); // pretoze equals testuje surX a surY
+		riesenie.add(policko);
+	}
 }
