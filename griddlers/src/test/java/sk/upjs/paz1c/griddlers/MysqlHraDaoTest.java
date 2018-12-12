@@ -84,28 +84,56 @@ class MysqlHraDaoTest {
 
 	@Test
 	void getPodlaObdobiaTest1() {
-		
+		Hra hra = new Hra();
+		hra.setPocetTahov(100);
+		hra.setCasRiesenia(199L);
+		hra.setUkoncena(true);
+		hra.setZaciatok(LocalDateTime.of(2018, 12, 17, 12, 00));
+		hra.setKoniec(LocalDateTime.of(2018, 12, 17, 12, 30));
+		hra.setKrizovkaId(34L);
 		List<Hra> zoznam = hraDao.getPodlaObdobia(Obdobie.DEN);
+		Long id = hraDao.ulozit(hra).getId();
 		assertNotNull(zoznam);
+		assertTrue(zoznam.size() > 0);
+		hraDao.vymazat(id);
 	}
 
 	@Test
 	void getPodlaObdobiaTest2() {
+		Hra hra = new Hra();
+		hra.setPocetTahov(100);
+		hra.setCasRiesenia(199L);
+		hra.setUkoncena(true);
+		hra.setZaciatok(LocalDateTime.of(2018, 12, 15, 12, 00));
+		hra.setKoniec(LocalDateTime.of(2018, 12, 15, 12, 30));
 		List<Hra> zoznam = hraDao.getPodlaObdobia(Obdobie.TYZDEN);
+		hra.setKrizovkaId(34L);
+		Long id = hraDao.ulozit(hra).getId();
 		assertNotNull(zoznam);
 		assertTrue(zoznam.size() > 0);
+		hraDao.vymazat(id);
 	}
 
 	@Test
 	void getPodlaObdobiaTest3() {
+		Hra hra = new Hra();
+		hra.setPocetTahov(100);
+		hra.setCasRiesenia(199L);
+		hra.setUkoncena(true);
+		hra.setZaciatok(LocalDateTime.of(2018, 11, 27, 12, 00));
+		hra.setKoniec(LocalDateTime.of(2018, 11, 27, 12, 30));
 		List<Hra> zoznam = hraDao.getPodlaObdobia(Obdobie.MESIAC);
+		hra.setKrizovkaId(34L);
+		Long id = hraDao.ulozit(hra).getId();
+		
 		assertNotNull(zoznam);
 		assertTrue(zoznam.size() > 0);
+		hraDao.vymazat(id);
 	}
 	
 	@Test
 	void getKrizovkaPodlaHraIdTest() {
-		Long hraId = 8L;
+		Long hraId = 87L;
 		Krizovka krizovka = hraDao.getKrizovkaPodlaHraId(hraId);
 		System.out.println(krizovka.getId());
 		assertNotNull(krizovka);

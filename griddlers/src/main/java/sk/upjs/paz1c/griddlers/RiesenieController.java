@@ -62,20 +62,14 @@ public class RiesenieController extends Controller {
 	
 	public RiesenieController(Hra hra) {
 		this.hra = hra;
-		hra.setPolickaHry(polickoHryDao.getPodlaHraId(hra.getId()));
+		this.hra.setPolickaHry(polickoHryDao.getPodlaHraId(hra.getId()));
+		this.hra.setPoslednyMedzicas(LocalDateTime.now(ZoneId.systemDefault()));
 		this.krizovka = hraDao.getKrizovkaPodlaHraId(hra.getId());
-		manager = new RiesenieManager(krizovka);
-		
+		manager = new RiesenieManager(krizovka);	
 	}
 
 	@FXML
 	void initialize() {
-		spatButton.getStyleClass().setAll("btn", "btn-danger");
-		ulozButton.getStyleClass().setAll("btn", "btn-success");
-		
-		if(hra.getId() != null) {
-			manager.obnovPlatno(krizovkaCanvas, hra);
-		}
 		int sirka = krizovka.getSirka();
 		int vyska = krizovka.getVyska();
 		anchorPane.setPrefHeight(anchorPane.getPrefHeight() + (vyska - DEFAULT_VELKOST) * VELKOST_POLICKA);
@@ -93,6 +87,9 @@ public class RiesenieController extends Controller {
 		manager.vytvorMriezku(legendaLCanvas, Color.rgb(0, 0, 0, 0.5));
 		manager.zobrazLegendu(legendaHCanvas, true);
 		manager.zobrazLegendu(legendaLCanvas, false);
+		if(hra.getId() != null) {
+			manager.obnovPlatno(krizovkaCanvas, hra);
+		}
 
 	}
 
@@ -101,6 +98,11 @@ public class RiesenieController extends Controller {
 		Controller controller = new RiesenieVyberController();
 		novaScena(controller, "ries_vyber_krizovky.fxml", spatButton);
 	}
+	
+	@FXML
+    void handleCanvasOnDraggedAction(MouseEvent event) {
+		handleCanvasOnPressedAction(event);
+    }
 
 	@FXML
 	void handleCanvasOnPressedAction(MouseEvent event) {
@@ -121,10 +123,9 @@ public class RiesenieController extends Controller {
 			krizovkaCanvas.setDisable(true);
 			ulozButton.setDisable(true);
 			hra.setUkoncena(true);
-			long casRiesenia = manager.casRiesenia(hra);
+			long casRiesenia = manager.novyCasRiesenia(hra);
 			hra.setCasRiesenia(casRiesenia);
 			hra.setKoniec(LocalDateTime.now(ZoneId.systemDefault()));
-			hra.setPoslednyMedzicas(hra.getKoniec());
 			hra.setId(hraDao.ulozit(hra).getId());
 			polickoHryDao.vymazat(hra.getId());
 		}
@@ -133,9 +134,8 @@ public class RiesenieController extends Controller {
 	
 	@FXML
 	void handleUlozButtonAction(ActionEvent event) {
-		long casRiesenia = manager.casRiesenia(hra);
+		long casRiesenia = manager.novyCasRiesenia(hra);
 		hra.setCasRiesenia(casRiesenia);
-		hra.setPoslednyMedzicas(LocalDateTime.now(ZoneId.systemDefault()));
 		hra.setId(hraDao.ulozit(hra).getId());
 		for(PolickoHry pol: hra.getPolickaHry()) {
 			pol.setIdHry(hra.getId());

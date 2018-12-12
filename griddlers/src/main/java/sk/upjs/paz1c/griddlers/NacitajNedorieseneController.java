@@ -29,9 +29,6 @@ public class NacitajNedorieseneController extends Controller{
 
     @FXML
     void initialize() {
-    	spatButton.getStyleClass().setAll("btn","btn-danger");
-    	nacitajButton.getStyleClass().setAll("btn","btn-info");
-    	
     	List<Hra> hry = hraDao.getVsetky();
     	List<Hra> naVymazanie = new ArrayList<>();
     	for(Hra hra: hry) {

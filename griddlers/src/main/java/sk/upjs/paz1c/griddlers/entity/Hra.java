@@ -25,7 +25,7 @@ public class Hra {
 				" Počet ťahov: " + pocetTahov + " Čas riešenia: " + casRiesenia;
 	}
 	
-	public String preformatujCas(LocalDateTime cas) {
+	public static String preformatujCas(LocalDateTime cas) {
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 		 return cas.format(format);
 	}

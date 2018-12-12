@@ -59,9 +59,6 @@ public class RiesenieVyberController extends Controller {
 
 	@FXML
 	void initialize() {
-		spatButton.getStyleClass().setAll("btn", "btn-danger");
-		potvrdButton.getStyleClass().setAll("btn", "btn-primary");
-
 		ObservableList<Narocnost> narocnosti = FXCollections.observableArrayList(Narocnost.LAHKA, Narocnost.STREDNA,
 				Narocnost.TAZKA);
 		narocnostComboBox.setItems(narocnosti);

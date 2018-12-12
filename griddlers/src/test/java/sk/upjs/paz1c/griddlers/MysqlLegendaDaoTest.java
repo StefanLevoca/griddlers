@@ -15,8 +15,16 @@ class MysqlLegendaDaoTest {
 
 	private LegendaDao legendaDao = DaoFactory.INSTANCE.getLegendaDao();
 
-	private Long idKrizovky = 35L;
+	private Long idKrizovky = 48L;
 
+	@Test
+	void vymazatTest() {
+		int velkostPred = legendaDao.getHornaPodlaId(idKrizovky).size();
+		legendaDao.vymazat(idKrizovky);
+		int velkostPo = legendaDao.getHornaPodlaId(idKrizovky).size();
+		assertTrue(velkostPo == 0 && velkostPred != 0);
+	}
+	
 	@Test
 	void ulozitTest() {
 		List<Legenda> legenda = new ArrayList<>();
@@ -26,28 +34,23 @@ class MysqlLegendaDaoTest {
 		}
 		legendaDao.ulozit(legenda, idKrizovky);
 		int velkostPo = legendaDao.getHornaPodlaId(idKrizovky).size();
-		assertEquals(velkostPred + 10, velkostPo);
-		
-		
+		assertEquals(velkostPred + 10, velkostPo);	
 	}
 	
 	@Test
 	void getHornaPodlaIdTest() {
 		List<Legenda> legenda = legendaDao.getHornaPodlaId(idKrizovky);
+		System.out.println(legenda.size());
 		assertNotNull(legenda);
+		assertTrue(legenda.size() > 0);
 	}
 
 	@Test
 	void getLavaPodlaIdTest() {
 		List<Legenda> legenda = legendaDao.getLavaPodlaId(idKrizovky);
 		assertNotNull(legenda);
+		assertTrue(legenda.size() > 0);
 	}
 	
-	@Test
-	void vymazatTest() {
-		int velkostPred = legendaDao.getHornaPodlaId(idKrizovky).size();
-		legendaDao.vymazat(idKrizovky);
-		int velkostPo = legendaDao.getHornaPodlaId(idKrizovky).size();
-		assertTrue(velkostPo == 0 && velkostPred != 0);
-	}
+	
 }

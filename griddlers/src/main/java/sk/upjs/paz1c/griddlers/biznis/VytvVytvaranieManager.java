@@ -63,7 +63,6 @@ public class VytvVytvaranieManager extends Platnovac{
 		int sirka = krizovka.getSirka();
 		int vyska = krizovka.getVyska();
 		boolean[][] rieseniePole = riesenieNaMaticu();
-		// TODO REFACTOR!!!!
 		// ak riadok nema aspon jednu hodnotu true nemoze byt ulozena krizovka
 		for (int i = 0; i < vyska; i++) {
 			boolean maTrue = false;
@@ -92,15 +91,19 @@ public class VytvVytvaranieManager extends Platnovac{
 		}
 		return true;
 	}
-
+	
+	// metoda ktora vytvori legenduH
 	public List<Legenda> vytvorLegenduH() {
-		List<Legenda> legendaH = vytvorLegendu(true);
+		boolean horna = true;
+		List<Legenda> legendaH = vytvorLegendu(horna);
 		return legendaH;
 
 	}
-
+	
+	// anologicka metoda ku vytvorLegenduH pre lavu legendu
 	public List<Legenda> vytvorLegenduL() {
-		List<Legenda> legendaL = vytvorLegendu(false);
+		boolean horna = false;
+		List<Legenda> legendaL = vytvorLegendu(horna);
 		return legendaL;
 	}
 
@@ -146,8 +149,8 @@ public class VytvVytvaranieManager extends Platnovac{
 	private boolean[][] riesenieNaMaticu() {
 		List<Policko> riesenieList = krizovka.getRiesenie();
 		int vyska = krizovka.getVyska();
-
 		int sirka = krizovka.getSirka();
+		System.out.println(vyska + " " + sirka);
 		boolean[][] rieseniePole = new boolean[vyska][sirka];
 		int riadok;
 		int stlpec;
@@ -171,6 +174,7 @@ public class VytvVytvaranieManager extends Platnovac{
 		return novaMatica;
 	}
 	
+	// metoda ktora premaze platno a nanovo vykresli mriezku
 	public void canvasReset(Canvas platno) {
 		GraphicsContext gc = platno.getGraphicsContext2D();
 		gc.clearRect(0, 0, platno.getWidth(), platno.getHeight());

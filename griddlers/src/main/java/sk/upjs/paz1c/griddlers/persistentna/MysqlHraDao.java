@@ -3,6 +3,7 @@ package sk.upjs.paz1c.griddlers.persistentna;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class MysqlHraDao implements HraDao {
 	}
 
 	public List<Hra> getVsetky() {
-		String sql = "SELECT id, pocet_tahov, cas_riesenia, ukoncena, zaciatok, posledny_medzicas, koniec, krizovka_id"
+		String sql = "SELECT id, pocet_tahov, cas_riesenia, ukoncena, zaciatok, koniec, krizovka_id"
 
 				+ " FROM hra";
 		return jdbcTemplate.query(sql, new RowMapper<Hra>() {
@@ -39,11 +40,8 @@ public class MysqlHraDao implements HraDao {
 				hra.setUkoncena(rs.getBoolean("ukoncena"));
 				hra.setPocetTahov(rs.getInt("pocet_tahov"));
 				hra.setCasRiesenia(rs.getInt("cas_riesenia"));
-
 				Timestamp zaciatok = rs.getTimestamp("zaciatok");
 				hra.setZaciatok(zaciatok.toLocalDateTime());
-				Timestamp poslednyMedzicas = rs.getTimestamp("posledny_medzicas");
-				hra.setPoslednyMedzicas(poslednyMedzicas.toLocalDateTime());
 				Timestamp koniec = rs.getTimestamp("koniec");
 				if (koniec != null) {
 					hra.setKoniec(koniec.toLocalDateTime());
@@ -66,21 +64,20 @@ public class MysqlHraDao implements HraDao {
 			SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
 			simpleJdbcInsert.withTableName("hra");
 			simpleJdbcInsert.usingGeneratedKeyColumns("id");
-			simpleJdbcInsert.usingColumns("pocet_tahov", "cas_riesenia", "ukoncena", "zaciatok", "posledny_medzicas",
+			simpleJdbcInsert.usingColumns("pocet_tahov", "cas_riesenia", "ukoncena", "zaciatok",
 					"koniec", "krizovka_id");
 			Map<String, Object> hodnoty = new HashMap<>();
 			hodnoty.put("pocet_tahov", hra.getPocetTahov());
 			hodnoty.put("cas_riesenia", hra.getCasRiesenia());
 			hodnoty.put("ukoncena", hra.isUkoncena());
 			hodnoty.put("zaciatok", hra.getZaciatok());
-			hodnoty.put("posledny_medzicas", hra.getPoslednyMedzicas());
 			hodnoty.put("koniec", hra.getKoniec());
 			hodnoty.put("krizovka_id", hra.getKrizovkaId());
 			Long id = simpleJdbcInsert.executeAndReturnKey(hodnoty).longValue();
 			hra.setId(id);
 		}else {
-			String sql = "UPDATE hra SET pocet_tahov = ?, cas_riesenia = ?, ukoncena = ?, posledny_medzicas = ?, koniec = ? WHERE id = ?";
-			jdbcTemplate.update(sql, hra.getPocetTahov(), hra.getCasRiesenia(), hra.isUkoncena(), hra.getPoslednyMedzicas(), hra.getKoniec(), hra.getId());
+			String sql = "UPDATE hra SET pocet_tahov = ?, cas_riesenia = ?, ukoncena = ?, koniec = ? WHERE id = ?";
+			jdbcTemplate.update(sql, hra.getPocetTahov(), hra.getCasRiesenia(), hra.isUkoncena(), hra.getKoniec(), hra.getId());
 		}
 		return hra;
 	}
@@ -107,7 +104,7 @@ public class MysqlHraDao implements HraDao {
 		}
 
 		StringBuilder sql = new StringBuilder(
-				"SELECT h.cas_riesenia, k.nazov, h.pocet_tahov FROM Hra as h JOIN krizovka as k ON h.krizovka_id = k.id WHERE h.ukoncena = 1");
+				"SELECT h.cas_riesenia, k.nazov, h.pocet_tahov, h.koniec FROM Hra as h JOIN krizovka as k ON h.krizovka_id = k.id WHERE h.ukoncena = 1");
 		if (!obdobie.equals(Obdobie.VSETKY)) {
 			sql.append(String.format(" AND " + "(SELECT TIMESTAMPDIFF(%s, h.koniec, now()) < 1)", vybraneObdobie));
 		}
@@ -120,6 +117,7 @@ public class MysqlHraDao implements HraDao {
 				hra.setNazovKrizovky(rs.getString("k.nazov"));
 				hra.setCasRiesenia(rs.getInt("h.cas_riesenia"));
 				hra.setPocetTahov(rs.getInt("h.pocet_tahov"));
+				hra.setKoniec(rs.getTimestamp("h.koniec").toLocalDateTime());
 				return hra;
 			}
 		});

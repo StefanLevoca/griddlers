@@ -25,11 +25,7 @@ public class UvodnaObrazovkaController extends Controller{
 
 	@FXML
 	public void initialize() {
-		statistikaButton.getStyleClass().setAll("btn","btn-success");
-		novaButton.getStyleClass().setAll("btn","btn-default");
-		koniecButton.getStyleClass().setAll("btn","btn-primary");
-		pokracovatButton.getStyleClass().setAll("btn","btn-info");
-		vlastnaButton.getStyleClass().setAll("btn","btn-warning");
+	
 	}
 
 	@FXML

@@ -4,8 +4,11 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Map;
+import java.util.Set;
 
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -172,7 +175,8 @@ public class RiesenieManager extends Platnovac {
 		return true;
 	}
 
-	public long casRiesenia(Hra hra) {
+	// TODO testy
+	public long novyCasRiesenia(Hra hra) {
 		long casRiesenia = hra.getCasRiesenia();
 		long sekundy = ChronoUnit.SECONDS.between(hra.getPoslednyMedzicas(), LocalDateTime.now(ZoneId.systemDefault()));
 		return casRiesenia + sekundy;

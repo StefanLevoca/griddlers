@@ -54,10 +54,6 @@ public class VytvVytvaranieController extends Controller {
 
 	@FXML
 	void initialize() {
-		spatButton.getStyleClass().setAll("btn", "btn-danger");
-		ulozButton.getStyleClass().setAll("btn", "btn-warning");
-		resetButton.getStyleClass().setAll("btn", "btn-primary");
-
 		krizovkaCanvas.setHeight(vyska * VELKOST_POLICKA);
 		krizovkaCanvas.setWidth(sirka * VELKOST_POLICKA);
 		borderPane.setPrefWidth(borderPane.getPrefWidth() + VELKOST_POLICKA * (sirka - DEFAULT_VELKOST));

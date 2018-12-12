@@ -3,6 +3,7 @@ package sk.upjs.paz1c.griddlers;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -15,7 +16,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import sk.upjs.paz1c.griddlers.biznis.StatistikaVyberManager;
+import sk.upjs.paz1c.griddlers.biznis.StatistikaManager;
 import sk.upjs.paz1c.griddlers.entity.Hra;
 import sk.upjs.paz1c.griddlers.entity.Obdobie;
 
@@ -25,7 +26,7 @@ public class StatistikaController extends Controller {
 	private TableView<Hra> statistikaTableView;
 
 	@FXML
-	private TableColumn<Hra, LocalDateTime> casTableColumn;
+	private TableColumn<Hra, String> casTableColumn;
 
 	@FXML
 	private TableColumn<Hra, String> nazovKrizovkyTableColumn;
@@ -34,7 +35,7 @@ public class StatistikaController extends Controller {
 	private TableColumn<Hra, Integer> pocetTahovTableColumn;
 
 	@FXML
-	private TableColumn<Hra, LocalDateTime> datumUkonceniaTableColumn;
+	private TableColumn<Hra, String> datumUkonceniaTableColumn;
 
 	@FXML
 	private ComboBox<Obdobie> obdobieComboBox;
@@ -42,18 +43,17 @@ public class StatistikaController extends Controller {
 	@FXML
 	private Button spatButton;
 
-	private StatistikaVyberManager manager;
+	private StatistikaManager manager;
 
 	private ObservableList<Hra> hry;
 
 	public StatistikaController() {
-		this.manager = new StatistikaVyberManager();
+		this.manager = new StatistikaManager();
 	}
 
 	@FXML
 	void initialize() {
-		spatButton.getStyleClass().setAll("btn", "btn-danger");
-
+		
 		ObservableList<Obdobie> obdobia = FXCollections.observableArrayList(Obdobie.VSETKY, Obdobie.DEN, Obdobie.TYZDEN,
 				Obdobie.MESIAC);
 		obdobieComboBox.setItems(obdobia);
@@ -71,42 +71,15 @@ public class StatistikaController extends Controller {
 		nazovKrizovkyTableColumn.setCellValueFactory(new PropertyValueFactory<Hra, String>("nazovKrizovky"));
 		//casTableColumn.setCellValueFactory(new PropertyValueFactory<Hra, LocalDateTime>("casRiesenia"));
 		
-		TableColumn<Hra, LocalDateTime> casTableColumn = new TableColumn<>("casRiesenia");
-		casTableColumn.setCellValueFactory(new PropertyValueFactory<Hra, LocalDateTime>("casRiesenia"));
-		casTableColumn.setCellFactory((TableColumn<Hra, LocalDateTime> column) -> {
-			return new TableCell<Hra, LocalDateTime>() {
-				@Override
-				protected void updateItem(LocalDateTime item, boolean empty) {
-					super.updateItem(item, empty);
-					if (item == null || empty) {
-						setText(null);
-					} else {
-						setText(item.format(DateTimeFormatter.ofPattern("HH.mm.ss")));
-					}
-				}
-			};
-		});
+		casTableColumn.setCellValueFactory(c -> new SimpleStringProperty(manager.formatujCas(c.getValue().getCasRiesenia())));;
 
 		pocetTahovTableColumn.setCellValueFactory(new PropertyValueFactory<Hra, Integer>("pocetTahov"));
 		// datumUkonceniaTableColumn.setCellValueFactory(new PropertyValueFactory<Hra,
 		// LocalDateTime>("koniec"));
 
-		TableColumn<Hra, LocalDateTime> datumUkonceniaTableColumn = new TableColumn<>("koniec");
-		datumUkonceniaTableColumn.setCellValueFactory(new PropertyValueFactory<Hra, LocalDateTime>("koniec"));
-		datumUkonceniaTableColumn.setCellFactory((TableColumn<Hra, LocalDateTime> column) -> {
-			return new TableCell<Hra, LocalDateTime>() {
-				@Override
-				protected void updateItem(LocalDateTime item, boolean empty) {
-					super.updateItem(item, empty);
-					if (item == null || empty) {
-						setText(null);
-					} else {
-						setText(item.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-					}
-				}
-			};
-		});
-
+		datumUkonceniaTableColumn.setCellValueFactory(c -> new SimpleStringProperty(Hra.preformatujCas(c.getValue().getKoniec())));
+	
+		
 		statistikaTableView.setItems(hry);
 	}
 

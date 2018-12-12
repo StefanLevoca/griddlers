@@ -4,11 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-
+import javafx.scene.control.Alert.AlertType;
 import sk.upjs.paz1c.griddlers.KrizovkaFxModel;
 import sk.upjs.paz1c.griddlers.entity.Narocnost;
 
@@ -37,9 +37,6 @@ public class VytvZadanieVstupovController extends Controller{
 
 	@FXML
 	void initialize() {
-		spatButton.getStyleClass().setAll("btn","btn-danger");
-		zacatButton.getStyleClass().setAll("btn","btn-primary");
-		
 		ObservableList<Integer> sirkaVyska = FXCollections.observableArrayList(15,20,25,30,35,40,45,50,55,60);
 		sirkaComboBox.setItems(sirkaVyska);
 		vyskaComboBox.setItems(sirkaVyska);		
@@ -57,6 +54,15 @@ public class VytvZadanieVstupovController extends Controller{
 
 	@FXML
 	void handleZacatButtonAction(ActionEvent event) {
+		String nazov = krizovkaModel.getNazov();
+		if( nazov == null || nazov.equals("") || nazov.length() > 15) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Upozornenie");
+			alert.setHeaderText("Chybný názov!");
+			alert.setContentText("Zabudol si zadať názov alebo je až príliš dlhý.");
+			alert.showAndWait();
+			return ;
+		}
 		VytvVytvaranieController controller = new VytvVytvaranieController(krizovkaModel.getKrizovka());
 		novaScena(controller, "vytv_vytvaranie.fxml", zacatButton);
 	}

@@ -9,15 +9,22 @@ import sk.upjs.paz1c.griddlers.entity.Obdobie;
 import sk.upjs.paz1c.griddlers.persistentna.DaoFactory;
 import sk.upjs.paz1c.griddlers.persistentna.HraDao;
 
-public class StatistikaVyberManager {
+public class StatistikaManager {
 
 	private HraDao hraDao = DaoFactory.INSTANCE.getHraDao();
 
-	public StatistikaVyberManager() {
+	public StatistikaManager() {
 	}
 
 	public ObservableList<Hra> zmenHry(Obdobie obdobie) {
 		List<Hra> hryList = hraDao.getPodlaObdobia(obdobie);
 		return FXCollections.observableArrayList(hryList);
+	}
+
+	public String formatujCas(long cas) {
+		long sekundy = cas % 60;
+		long minuty = cas / 60;
+		long hodiny = cas / 3600;
+		return String.format("%d:%d:%d", hodiny, minuty, sekundy);
 	}
 }
