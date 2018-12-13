@@ -6,20 +6,18 @@ public class Legenda {
 	private int riadokStlpec;
 	private int poradie;
 	private int hodnota;
-	
+
 	public Legenda(boolean horna, int riadokStlpec, int poradie, int hodnota) {
 		this.horna = horna;
 		this.riadokStlpec = riadokStlpec;
 		this.poradie = poradie;
 		this.hodnota = hodnota;
 	}
-	
+
 	public Legenda(long krizovkaId, boolean horna, int riadokStlpec, int poradie, int hodnota) {
 		this(horna, riadokStlpec, poradie, hodnota);
-		this.krizovkaId = krizovkaId;		
+		this.krizovkaId = krizovkaId;
 	}
-	
-	
 
 	public Legenda() {
 
@@ -61,42 +59,50 @@ public class Legenda {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		
-		return "[horna="+ horna + ", riadok="+ riadokStlpec + ", poradie=" + poradie + ", hodnota=" + hodnota + "]";
+		return "[horna=" + horna + ", riadok=" + riadokStlpec + ", poradie=" + poradie + ", hodnota=" + hodnota + "]";
 	}
 
 	public Long getKrizovkaId() {
 		return krizovkaId;
 	}
+
 	public void setKrizovkaId(Long krizovka_id) {
 		this.krizovkaId = krizovka_id;
 	}
+
 	public boolean isHorna() {
 		return horna;
 	}
+
 	public void setHorna(boolean horna) {
 		this.horna = horna;
 	}
+
 	public int getRiadokStlpec() {
 		return riadokStlpec;
 	}
+
 	public void setRiadokStlpec(int riadokStlpec) {
 		this.riadokStlpec = riadokStlpec;
 	}
+
 	public int getPoradie() {
 		return poradie;
 	}
+
 	public void setPoradie(int poradie) {
 		this.poradie = poradie;
 	}
+
 	public int getHodnota() {
 		return hodnota;
 	}
+
 	public void setHodnota(int hodnota) {
 		this.hodnota = hodnota;
 	}
-	
+
 }

@@ -2,8 +2,6 @@ package sk.upjs.paz1c.griddlers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +30,6 @@ class VytvVytvaranieManagerTest {
 				riesenie.add(new Policko(false, i, 1));
 				riesenie.add(new Policko(true, i, 2));
 			}
-
 		}
 		krizovka.setRiesenie(riesenie);
 		krizovka.setVyska(3);
@@ -47,6 +44,7 @@ class VytvVytvaranieManagerTest {
 		boolean ocakavanaHodnota = true;
 		assertEquals(ocakavanaHodnota, vypocitanaHodnota);
 	}
+
 	@Test
 	void testMozeUlozit2() {
 		List<Policko> riesenie = krizovka.getRiesenie();
@@ -69,9 +67,7 @@ class VytvVytvaranieManagerTest {
 			}
 			legendaHOcakavana.add(legenda);
 		}
-
 		assertEquals(legendaHOcakavana, legendaHVypocitana);
-
 	}
 
 	@Test
@@ -80,16 +76,12 @@ class VytvVytvaranieManagerTest {
 		List<Legenda> legendaLOcakavana = new ArrayList<>();
 		Legenda legenda;
 		for (int i = 0; i < 2; i++) {
-			for(int j = 0; j < 5; j++) {
+			for (int j = 0; j < 5; j++) {
 				legenda = new Legenda(false, i, j, 1);
 				legendaLOcakavana.add(legenda);
 			}
 		}
 		legendaLOcakavana.add(new Legenda(false, 2, 0, 10));
-		
-
 		assertEquals(legendaLOcakavana, legendaLVypocitana);
-
 	}
-
 }

@@ -55,7 +55,6 @@ public class KrizovkaFxModel {
 		setVyska(krizovka.getVyska());
 		setNazov(krizovka.getNazov());
 		setNarocnost(krizovka.getNarocnost());
-		;
 		setRiesenie(krizovka.getRiesenie());
 		setLegendaL(krizovka.getLegendaL());
 		setLegendaH(krizovka.getLegendaH());

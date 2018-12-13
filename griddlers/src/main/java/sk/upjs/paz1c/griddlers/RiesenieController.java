@@ -59,13 +59,13 @@ public class RiesenieController extends Controller {
 		manager = new RiesenieManager(krizovka);
 		hra.setPolickaHry(manager.inicializujPolickaHry());
 	}
-	
+
 	public RiesenieController(Hra hra) {
 		this.hra = hra;
 		this.hra.setPolickaHry(polickoHryDao.getPodlaHraId(hra.getId()));
 		this.hra.setPoslednyMedzicas(LocalDateTime.now(ZoneId.systemDefault()));
 		this.krizovka = hraDao.getKrizovkaPodlaHraId(hra.getId());
-		manager = new RiesenieManager(krizovka);	
+		manager = new RiesenieManager(krizovka);
 	}
 
 	@FXML
@@ -87,10 +87,9 @@ public class RiesenieController extends Controller {
 		manager.vytvorMriezku(legendaLCanvas, Color.rgb(0, 0, 0, 0.5));
 		manager.zobrazLegendu(legendaHCanvas, true);
 		manager.zobrazLegendu(legendaLCanvas, false);
-		if(hra.getId() != null) {
+		if (hra.getId() != null) {
 			manager.obnovPlatno(krizovkaCanvas, hra);
 		}
-
 	}
 
 	@FXML
@@ -98,19 +97,19 @@ public class RiesenieController extends Controller {
 		Controller controller = new RiesenieVyberController();
 		novaScena(controller, "ries_vyber_krizovky.fxml", spatButton);
 	}
-	
+
 	@FXML
-    void handleCanvasOnDraggedAction(MouseEvent event) {
+	void handleCanvasOnDraggedAction(MouseEvent event) {
 		handleCanvasOnPressedAction(event);
-    }
+	}
 
 	@FXML
 	void handleCanvasOnPressedAction(MouseEvent event) {
 		List<PolickoHry> polickaHry = hra.getPolickaHry();
 		PolickoHry policko = manager.spracujKlik(event, krizovkaCanvas);
 		hra.setPocetTahov(hra.getPocetTahov() + 1);
-		for(PolickoHry pol: polickaHry) {
-			if(pol.equals(policko)) {
+		for (PolickoHry pol : polickaHry) {
+			if (pol.equals(policko)) {
 				pol.setStav(policko.getStav());
 			}
 		}
@@ -129,19 +128,19 @@ public class RiesenieController extends Controller {
 			hra.setId(hraDao.ulozit(hra).getId());
 			polickoHryDao.vymazat(hra.getId());
 		}
-	
+
 	}
-	
+
 	@FXML
 	void handleUlozButtonAction(ActionEvent event) {
 		long casRiesenia = manager.novyCasRiesenia(hra);
 		hra.setCasRiesenia(casRiesenia);
 		hra.setId(hraDao.ulozit(hra).getId());
-		for(PolickoHry pol: hra.getPolickaHry()) {
+		for (PolickoHry pol : hra.getPolickaHry()) {
 			pol.setIdHry(hra.getId());
 		}
 		polickoHryDao.ulozit(hra.getPolickaHry());
-			hra.setPolickaHry(polickoHryDao.getPodlaHraId(hra.getId()));		
+		hra.setPolickaHry(polickoHryDao.getPodlaHraId(hra.getId()));
 	}
 
 }

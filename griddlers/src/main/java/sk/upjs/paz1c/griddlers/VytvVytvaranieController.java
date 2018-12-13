@@ -76,14 +76,12 @@ public class VytvVytvaranieController extends Controller {
 			alert.setContentText("Nesprávne vyplnenie krížovky");
 			alert.showAndWait();
 		}
-
 	}
 
 	@FXML
 	void handleResetButtonAction(ActionEvent event) {
 		manager.canvasReset(krizovkaCanvas);
 		manager.vyplnRiesenieFalse();
-
 	}
 
 	@FXML

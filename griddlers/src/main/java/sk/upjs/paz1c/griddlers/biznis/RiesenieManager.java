@@ -4,12 +4,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.canvas.Canvas;
@@ -94,24 +89,23 @@ public class RiesenieManager extends Platnovac {
 		}
 
 	}
-	
+
 	public void obnovPlatno(Canvas platno, Hra hra) {
 		List<PolickoHry> polickaHry = hra.getPolickaHry();
 		GraphicsContext gc = platno.getGraphicsContext2D();
 		double x1;
 		double y1;
-		for(PolickoHry polickoHry: polickaHry) {
+		for (PolickoHry polickoHry : polickaHry) {
 			x1 = polickoHry.getSurX() * VELKOST_POLICKA;
 			y1 = polickoHry.getSurY() * VELKOST_POLICKA;
-			if(polickoHry.getStav() != null && polickoHry.getStav() == true) {
+			if (polickoHry.getStav() != null && polickoHry.getStav() == true) {
 				kresliStvorec(gc, x1, y1, Color.BLACK);
-			}else if(polickoHry.getStav() != null && polickoHry.getStav() == false) {
+			} else if (polickoHry.getStav() != null && polickoHry.getStav() == false) {
 				kresliBodku(gc, x1, y1);
 			}
 		}
 	}
-	
-	
+
 	// pomocna metoda pri vytvarani legendy
 	private void vykresliLegendu(Canvas platno, Legenda polickoLegendy) {
 		int poradie = polickoLegendy.getPoradie();
@@ -139,8 +133,8 @@ public class RiesenieManager extends Platnovac {
 		}
 		gc.fillText(Integer.toString(hodnota), x1, y1);
 	}
-	
-	//TODO spravit test
+
+	// TODO spravit test
 	// metoda na zistenie maximalneho poctu cisiel v jednom riadku/stlpci legendy
 	// (kvoli prisposobeniu okna)
 	public int zistiPocetPotrebnych(boolean horna) {
@@ -158,17 +152,19 @@ public class RiesenieManager extends Platnovac {
 		}
 		return maxPoradie + 1;
 	}
-	//TODO spravit test
-	// metoda ktora sa vola pri kazdom kliku na krizovku a overuje ci uz nahodou krizovka nie je vyriesena
+
+	// TODO spravit test
+	// metoda ktora sa vola pri kazdom kliku na krizovku a overuje ci uz nahodou
+	// krizovka nie je vyriesena
 	public boolean overRiesenie(List<PolickoHry> polickaHry) {
 		Boolean stav;
 		boolean pozadovanyStav;
 		for (PolickoHry pol : polickaHry) {
 			stav = pol.getStav();
 			pozadovanyStav = pol.getPozadovanyStav();
-			if((stav == null || stav == false) && pozadovanyStav != false) {
+			if ((stav == null || stav == false) && pozadovanyStav != false) {
 				return false;
-			}else if ((stav != null && stav == true) && pozadovanyStav != true) {
+			} else if ((stav != null && stav == true) && pozadovanyStav != true) {
 				return false;
 			}
 		}
@@ -181,7 +177,5 @@ public class RiesenieManager extends Platnovac {
 		long sekundy = ChronoUnit.SECONDS.between(hra.getPoslednyMedzicas(), LocalDateTime.now(ZoneId.systemDefault()));
 		return casRiesenia + sekundy;
 	}
-
-	
 
 }

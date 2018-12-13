@@ -14,7 +14,7 @@ import sk.upjs.paz1c.griddlers.entity.Krizovka;
 import sk.upjs.paz1c.griddlers.entity.Legenda;
 import sk.upjs.paz1c.griddlers.entity.Policko;
 
-public class VytvVytvaranieManager extends Platnovac{
+public class VytvVytvaranieManager extends Platnovac {
 
 	private static final int VELKOST_POLICKA = VytvVytvaranieController.VELKOST_POLICKA;
 
@@ -23,8 +23,6 @@ public class VytvVytvaranieManager extends Platnovac{
 	public VytvVytvaranieManager(Krizovka krizovka) {
 		this.krizovka = krizovka;
 	}
-
-	
 
 	// metoda ktora spracuje stlacenie tlacidla a vrati objekt triedy policko ktore
 	// nasledne spracuje metoda v controlleri
@@ -91,7 +89,7 @@ public class VytvVytvaranieManager extends Platnovac{
 		}
 		return true;
 	}
-	
+
 	// metoda ktora vytvori legenduH
 	public List<Legenda> vytvorLegenduH() {
 		boolean horna = true;
@@ -99,7 +97,7 @@ public class VytvVytvaranieManager extends Platnovac{
 		return legendaH;
 
 	}
-	
+
 	// anologicka metoda ku vytvorLegenduH pre lavu legendu
 	public List<Legenda> vytvorLegenduL() {
 		boolean horna = false;
@@ -173,7 +171,7 @@ public class VytvVytvaranieManager extends Platnovac{
 		}
 		return novaMatica;
 	}
-	
+
 	// metoda ktora premaze platno a nanovo vykresli mriezku
 	public void canvasReset(Canvas platno) {
 		GraphicsContext gc = platno.getGraphicsContext2D();

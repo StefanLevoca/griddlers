@@ -1,19 +1,19 @@
 package sk.upjs.paz1c.griddlers.entity;
 
 public class Policko {
-	
+
 	private Long id;
 	private Long idKrizovky;
 	private boolean stav;
 	private int surX;
 	private int surY;
-	
+
 	public Policko(boolean stav, int surX, int surY) {
 		this.stav = stav;
-		this. surX = surX;
+		this.surX = surX;
 		this.surY = surY;
 	}
-	
+
 	public Policko(Long id, boolean stav, int surX, int surY) {
 		this(stav, surX, surY);
 		this.id = id;
@@ -27,7 +27,7 @@ public class Policko {
 		result = prime * result + surY;
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -43,54 +43,50 @@ public class Policko {
 			return false;
 		return true;
 	}
-	
-	
-
-
-
-
-
 
 	@Override
 	public String toString() {
-		return "x="+surX + ", y="+surY + ", " + stav;
+		return "x=" + surX + ", y=" + surY + ", " + stav;
 	}
-
-
-
-
-
 
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Long getIdKrizovky() {
 		return idKrizovky;
 	}
+
 	public void setIdKrizovky(Long idKrizovky) {
 		this.idKrizovky = idKrizovky;
 	}
+
 	public boolean getStav() {
 		return stav;
 	}
+
 	public void setStav(boolean stav) {
 		this.stav = stav;
 	}
+
 	public int getSurX() {
 		return surX;
 	}
+
 	public void setSurX(int surX) {
 		this.surX = surX;
 	}
+
 	public int getSurY() {
 		return surY;
 	}
+
 	public void setSurY(int surY) {
 		this.surY = surY;
 	}
-	
-	
+
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import sk.upjs.paz1c.griddlers.entity.PolickoHry;
 
 public interface PolickoHryDao {
-	
+
 	List<PolickoHry> getPodlaHraId(Long hraId);
 
 	PolickoHry ulozit(PolickoHry polickoHry);

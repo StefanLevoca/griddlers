@@ -6,15 +6,14 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 
 public enum DaoFactory {
 	INSTANCE;
-	
+
 	private JdbcTemplate jdbcTemplate;
 	private KrizovkaDao krizovkaDao;
 	private HraDao hraDao;
 	private PolickoDao polickoDao;
 	private PolickoHryDao polickoHryDao;
 	private LegendaDao legendaDao;
-	
-	
+
 	private JdbcTemplate getJdbcTemplate() {
 		if (jdbcTemplate == null) {
 			MysqlDataSource dataSource = new MysqlDataSource();
@@ -26,42 +25,40 @@ public enum DaoFactory {
 		}
 		return jdbcTemplate;
 	}
-	
+
 	public KrizovkaDao getKrizovkaDao() {
-		if(krizovkaDao == null) {
+		if (krizovkaDao == null) {
 			krizovkaDao = new MysqlKrizovkaDao(getJdbcTemplate());
 		}
 		return krizovkaDao;
 	}
-	
+
 	public HraDao getHraDao() {
-		if(hraDao == null) {
+		if (hraDao == null) {
 			hraDao = new MysqlHraDao(getJdbcTemplate());
 		}
 		return hraDao;
 	}
-	
+
 	public PolickoDao getPolickoDao() {
-		if(polickoDao == null) {
+		if (polickoDao == null) {
 			polickoDao = new MysqlPolickoDao(getJdbcTemplate());
 		}
 		return polickoDao;
 	}
-	
+
 	public PolickoHryDao getPolickoHryDao() {
-		if(polickoHryDao == null) {
+		if (polickoHryDao == null) {
 			polickoHryDao = new MysqlPolickoHryDao(getJdbcTemplate());
 		}
 		return polickoHryDao;
 	}
 
 	public LegendaDao getLegendaDao() {
-		if(legendaDao == null) {
+		if (legendaDao == null) {
 			legendaDao = new MysqlLegendaDao(getJdbcTemplate());
 		}
 		return legendaDao;
 	}
-	
-	
-	
+
 }

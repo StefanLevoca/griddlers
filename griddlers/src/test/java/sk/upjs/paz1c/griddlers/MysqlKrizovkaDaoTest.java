@@ -32,12 +32,12 @@ class MysqlKrizovkaDaoTest {
 		krizovka.setSirka(15);
 		krizovka.setVyska(15);
 		List<Policko> riesenie = new ArrayList<>();
-		riesenie.add(new Policko(true, 8,9));
+		riesenie.add(new Policko(true, 8, 9));
 		krizovka.setRiesenie(riesenie);
 		List<Legenda> legendaH = new ArrayList<>();
 		List<Legenda> legendaL = new ArrayList<>();
-		legendaH.add(new Legenda(true, 1,1,2));
-		legendaL.add(new Legenda(false, 1,1,4));
+		legendaH.add(new Legenda(true, 1, 1, 2));
+		legendaL.add(new Legenda(false, 1, 1, 4));
 		krizovka.setLegendaH(legendaH);
 		krizovka.setLegendaL(legendaL);
 		int velkost = krizovkaDao.getVsetky().size();
@@ -58,7 +58,5 @@ class MysqlKrizovkaDaoTest {
 			assertNotEquals(id, k.getId());
 		}
 	}
-
-	
 
 }

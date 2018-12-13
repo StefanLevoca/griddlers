@@ -13,9 +13,8 @@ import sk.upjs.paz1c.griddlers.persistentna.PolickoDao;
 
 class MysqlPolickoDaoTest {
 
-	
 	private PolickoDao polickoDao = DaoFactory.INSTANCE.getPolickoDao();
-	
+
 	private Long idKrizovky = 35L;
 
 	@Test

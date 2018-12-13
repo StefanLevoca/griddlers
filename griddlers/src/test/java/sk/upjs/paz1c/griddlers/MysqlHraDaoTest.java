@@ -125,12 +125,12 @@ class MysqlHraDaoTest {
 		List<Hra> zoznam = hraDao.getPodlaObdobia(Obdobie.MESIAC);
 		hra.setKrizovkaId(34L);
 		Long id = hraDao.ulozit(hra).getId();
-		
+
 		assertNotNull(zoznam);
 		assertTrue(zoznam.size() > 0);
 		hraDao.vymazat(id);
 	}
-	
+
 	@Test
 	void getKrizovkaPodlaHraIdTest() {
 		Long hraId = 87L;

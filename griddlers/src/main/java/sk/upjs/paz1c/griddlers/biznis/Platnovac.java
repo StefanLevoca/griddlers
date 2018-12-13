@@ -3,14 +3,12 @@ package sk.upjs.paz1c.griddlers.biznis;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import sk.upjs.paz1c.griddlers.VytvVytvaranieController;
-import sk.upjs.paz1c.griddlers.entity.Krizovka;
 
 public abstract class Platnovac {
 
 	protected static final int VELKOST_POLICKA = VytvVytvaranieController.VELKOST_POLICKA;
-	
+
 	// samopopisujuci nazov
 	public void vytvorMriezku(Canvas platno) {
 		double sirka = platno.getWidth();
@@ -37,39 +35,38 @@ public abstract class Platnovac {
 			gc.stroke();
 		}
 	}
-	
+
 	// metoda na vykreslenie stvorca
-		protected void kresliStvorec(GraphicsContext gc, double x, double y, Color farba) {
-			gc.setFill(farba);
-			gc.beginPath();
-			gc.moveTo(x, y);
-			gc.lineTo(x + VELKOST_POLICKA, y);
+	protected void kresliStvorec(GraphicsContext gc, double x, double y, Color farba) {
+		gc.setFill(farba);
+		gc.beginPath();
+		gc.moveTo(x, y);
+		gc.lineTo(x + VELKOST_POLICKA, y);
+		gc.lineTo(x + VELKOST_POLICKA, y + VELKOST_POLICKA);
+		gc.lineTo(x, y + VELKOST_POLICKA);
+		gc.lineTo(x, y);
+		gc.closePath();
+		gc.fill();
+		if (gc.getFill().equals(Color.WHITE)) {
+			gc.setLineWidth(1.0);
+			gc.setFill(Color.BLACK);
+			gc.moveTo(x, y + 0.5);
+			gc.lineTo(x + VELKOST_POLICKA, y + 0.5);
 			gc.lineTo(x + VELKOST_POLICKA, y + VELKOST_POLICKA);
 			gc.lineTo(x, y + VELKOST_POLICKA);
 			gc.lineTo(x, y);
-			gc.closePath();
-			gc.fill();
-			if (gc.getFill().equals(Color.WHITE)) {
-				gc.setLineWidth(1.0);
-				gc.setFill(Color.BLACK);
-				gc.moveTo(x, y + 0.5);
-				gc.lineTo(x + VELKOST_POLICKA, y + 0.5);
-				gc.lineTo(x + VELKOST_POLICKA, y + VELKOST_POLICKA);
-				gc.lineTo(x, y + VELKOST_POLICKA);
-				gc.lineTo(x, y);
-				gc.stroke();
-				// TODO kreslit ostre ciary
-			}
+			gc.stroke();
+			// TODO kreslit ostre ciary
 		}
+	}
 
-		// metoda na vykreslenie bodky
-		protected void kresliBodku(GraphicsContext gc, double x, double y) {
-			double surX = x + (VELKOST_POLICKA / 2);
-			double surY = y + (VELKOST_POLICKA / 2);
-			kresliStvorec(gc, x, y, Color.WHITE);
-			gc.setFill(Color.BLACK);
-			gc.fillOval(surX - 2, surY - 2, 4, 4);
-		}
-		
-		
+	// metoda na vykreslenie bodky
+	protected void kresliBodku(GraphicsContext gc, double x, double y) {
+		double surX = x + (VELKOST_POLICKA / 2);
+		double surY = y + (VELKOST_POLICKA / 2);
+		kresliStvorec(gc, x, y, Color.WHITE);
+		gc.setFill(Color.BLACK);
+		gc.fillOval(surX - 2, surY - 2, 4, 4);
+	}
+
 }

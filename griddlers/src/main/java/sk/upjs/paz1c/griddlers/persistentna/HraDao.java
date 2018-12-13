@@ -17,5 +17,4 @@ public interface HraDao {
 
 	Krizovka getKrizovkaPodlaHraId(Long id);
 
-	
 }

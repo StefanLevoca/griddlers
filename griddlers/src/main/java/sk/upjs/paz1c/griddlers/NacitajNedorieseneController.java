@@ -14,50 +14,50 @@ import sk.upjs.paz1c.griddlers.entity.Hra;
 import sk.upjs.paz1c.griddlers.persistentna.DaoFactory;
 import sk.upjs.paz1c.griddlers.persistentna.HraDao;
 
-public class NacitajNedorieseneController extends Controller{
+public class NacitajNedorieseneController extends Controller {
 
 	@FXML
 	private Button spatButton;
-    @FXML
-    private Button nacitajButton;
+	@FXML
+	private Button nacitajButton;
 
-    @FXML
-    private ListView<Hra> nedorieseneListView;
-    
-    private HraDao hraDao = DaoFactory.INSTANCE.getHraDao();
-    private Hra hra;
+	@FXML
+	private ListView<Hra> nedorieseneListView;
 
-    @FXML
-    void initialize() {
-    	List<Hra> hry = hraDao.getVsetky();
-    	List<Hra> naVymazanie = new ArrayList<>();
-    	for(Hra hra: hry) {
-    		if(hra.isUkoncena()) {
-    			naVymazanie.add(hra);
-    		}
-    	}
-    	hry.removeAll(naVymazanie);
-    	nedorieseneListView.setItems(FXCollections.observableArrayList(hry));
-    	nedorieseneListView.getSelectionModel().selectFirst();
-    	hra = nedorieseneListView.getSelectionModel().getSelectedItem();
-    	nedorieseneListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Hra>() {
+	private HraDao hraDao = DaoFactory.INSTANCE.getHraDao();
+	private Hra hra;
+
+	@FXML
+	void initialize() {
+		List<Hra> hry = hraDao.getVsetky();
+		List<Hra> naVymazanie = new ArrayList<>();
+		for (Hra hra : hry) {
+			if (hra.isUkoncena()) {
+				naVymazanie.add(hra);
+			}
+		}
+		hry.removeAll(naVymazanie);
+		nedorieseneListView.setItems(FXCollections.observableArrayList(hry));
+		nedorieseneListView.getSelectionModel().selectFirst();
+		hra = nedorieseneListView.getSelectionModel().getSelectedItem();
+		nedorieseneListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Hra>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Hra> observable, Hra oldValue, Hra newValue) {
 				hra = newValue;
 			}
 		});
-    }
-    
-    @FXML
+	}
+
+	@FXML
 	void handleSpatButtonAction(ActionEvent event) {
 		Controller mainController = new UvodnaObrazovkaController();
 		novaScena(mainController, "uvodna_obr.fxml", spatButton);
 	}
-    
-    @FXML
-   	void handleNacitajButtonAction(ActionEvent event) {
-   		Controller mainController = new RiesenieController(hra);
-   		novaScena(mainController, "ries_riesenie.fxml", nacitajButton);
-   	}
+
+	@FXML
+	void handleNacitajButtonAction(ActionEvent event) {
+		Controller mainController = new RiesenieController(hra);
+		novaScena(mainController, "ries_riesenie.fxml", nacitajButton);
+	}
 }

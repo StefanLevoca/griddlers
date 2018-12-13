@@ -2,7 +2,6 @@ package sk.upjs.paz1c.griddlers.persistentna;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +46,6 @@ public class MysqlKrizovkaDao implements KrizovkaDao {
 				return krizovka;
 			}
 		});
-
 	}
 
 	@Override
@@ -68,11 +66,11 @@ public class MysqlKrizovkaDao implements KrizovkaDao {
 			krizovka.setId(id);
 			List<Legenda> legendaH = krizovka.getLegendaH();
 			List<Legenda> legendaL = krizovka.getLegendaL();
-			List<Policko> riesenie = krizovka.getRiesenie(); 
+			List<Policko> riesenie = krizovka.getRiesenie();
 			legendaDao.ulozit(legendaH, krizovka.getId());
 			legendaDao.ulozit(legendaL, krizovka.getId());
-			polickoDao.ulozit(riesenie, krizovka.getId()); 
-			
+			polickoDao.ulozit(riesenie, krizovka.getId());
+
 		} else {
 			// AKTUALIZACIA
 			String sql = "UPDATE krizovka SET nazov = ?, narocnost = ?, sirka = ?, vyska = ? WHERE id = ?";
@@ -91,7 +89,7 @@ public class MysqlKrizovkaDao implements KrizovkaDao {
 	@Override
 	public List<Krizovka> getPodlaNarocnosti(Narocnost narocnost) {
 		String sql = "SELECT id, narocnost, sirka, vyska, nazov FROM krizovka WHERE narocnost = ?";
-		Object[] parametre = new Object[] {narocnost.name()};
+		Object[] parametre = new Object[] { narocnost.name() };
 		return jdbcTemplate.query(sql, parametre, new RowMapper<Krizovka>() {
 
 			@Override
@@ -105,11 +103,9 @@ public class MysqlKrizovkaDao implements KrizovkaDao {
 				krizovka.setRiesenie(polickoDao.getPodlaId(krizovka.getId()));
 				krizovka.setLegendaH(legendaDao.getHornaPodlaId(krizovka.getId()));
 				krizovka.setLegendaL(legendaDao.getLavaPodlaId(krizovka.getId()));
-				
+
 				return krizovka;
 			}
 		});
-		
 	}
-
 }

@@ -5,8 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-
-public class UvodnaObrazovkaController extends Controller{
+public class UvodnaObrazovkaController extends Controller {
 
 	@FXML
 	private Button statistikaButton;
@@ -25,7 +24,7 @@ public class UvodnaObrazovkaController extends Controller{
 
 	@FXML
 	public void initialize() {
-	
+
 	}
 
 	@FXML
@@ -33,24 +32,23 @@ public class UvodnaObrazovkaController extends Controller{
 		VytvZadanieVstupovController controller = new VytvZadanieVstupovController();
 		novaScena(controller, "vytv_zadanie_vst.fxml", vlastnaButton);
 	}
-	
+
 	@FXML
 	void handlePokracovatButtonAction(ActionEvent event) {
 		NacitajNedorieseneController controller = new NacitajNedorieseneController();
 		novaScena(controller, "nacit_nedories_krizovky.fxml", pokracovatButton);
 	}
-	
+
 	@FXML
 	void handleKoniecButtonAction(ActionEvent event) {
 		Platform.exit();
 	}
-	
+
 	@FXML
 	void handleNovaButtonAction(ActionEvent event) {
 		RiesenieVyberController controller = new RiesenieVyberController();
 		novaScena(controller, "ries_vyber_krizovky.fxml", novaButton);
 	}
-	
 
 	@FXML
 	void handleStatistikaButtonAction(ActionEvent event) {
@@ -58,5 +56,3 @@ public class UvodnaObrazovkaController extends Controller{
 		novaScena(controller, "statistika.fxml", statistikaButton);
 	}
 }
-
-	

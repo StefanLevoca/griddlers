@@ -24,19 +24,19 @@ class MysqlLegendaDaoTest {
 		int velkostPo = legendaDao.getHornaPodlaId(idKrizovky).size();
 		assertTrue(velkostPo == 0 && velkostPred != 0);
 	}
-	
+
 	@Test
 	void ulozitTest() {
 		List<Legenda> legenda = new ArrayList<>();
 		int velkostPred = legendaDao.getHornaPodlaId(idKrizovky).size();
-		for(int i = 0; i < 10; i++) {
-			legenda.add(new Legenda(true, i + 251, 1, (int)Math.pow(i, 2)));
+		for (int i = 0; i < 10; i++) {
+			legenda.add(new Legenda(true, i + 251, 1, (int) Math.pow(i, 2)));
 		}
 		legendaDao.ulozit(legenda, idKrizovky);
 		int velkostPo = legendaDao.getHornaPodlaId(idKrizovky).size();
-		assertEquals(velkostPred + 10, velkostPo);	
+		assertEquals(velkostPred + 10, velkostPo);
 	}
-	
+
 	@Test
 	void getHornaPodlaIdTest() {
 		List<Legenda> legenda = legendaDao.getHornaPodlaId(idKrizovky);
@@ -51,6 +51,5 @@ class MysqlLegendaDaoTest {
 		assertNotNull(legenda);
 		assertTrue(legenda.size() > 0);
 	}
-	
-	
+
 }

@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class Controller {
-	
+
 	public void novaScena(Controller controller, String fxmlSubor, Button komponent) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlSubor));
@@ -17,7 +17,6 @@ public class Controller {
 			Parent rootPane;
 			rootPane = fxmlLoader.load();
 			Scene scene = new Scene(rootPane);
-			scene.getStylesheets().add("org/kordamp/bootstrapfx/bootstrapfx.css");
 
 			Stage stage = (Stage) komponent.getScene().getWindow();
 			stage.setResizable(false);

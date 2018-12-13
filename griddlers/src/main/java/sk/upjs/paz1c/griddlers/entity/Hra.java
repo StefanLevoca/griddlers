@@ -20,14 +20,14 @@ public class Hra {
 
 	@Override
 	public String toString() {
-		
-		return "ID: " + id + " Naposledy hraná: " + preformatujCas(poslednyMedzicas) + 
-				" Počet ťahov: " + pocetTahov + " Čas riešenia: " + casRiesenia;
+
+		return "ID: " + id + " Naposledy hraná: " + preformatujCas(poslednyMedzicas) + " Počet ťahov: " + pocetTahov
+				+ " Čas riešenia: " + casRiesenia;
 	}
-	
+
 	public static String preformatujCas(LocalDateTime cas) {
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-		 return cas.format(format);
+		return cas.format(format);
 	}
 
 	public Long getId() {

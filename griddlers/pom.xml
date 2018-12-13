@@ -37,20 +37,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.kordamp.bootstrapfx</groupId>
-			<artifactId>bootstrapfx-core</artifactId>
-			<version>0.2.4</version>
-		</dependency>
-
 	</dependencies>
-
-	<repositories>
-		<repository>
-			<id>central</id>
-			<name>jcenter</name>
-			<url>http://jcenter.bintray.com</url>
-		</repository>
-	</repositories>
 
 </project>

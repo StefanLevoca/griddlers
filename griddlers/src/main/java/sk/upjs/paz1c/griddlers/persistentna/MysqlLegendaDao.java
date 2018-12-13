@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
-import sk.upjs.paz1c.griddlers.entity.Krizovka;
 import sk.upjs.paz1c.griddlers.entity.Legenda;
 
 public class MysqlLegendaDao implements LegendaDao {
@@ -21,7 +20,6 @@ public class MysqlLegendaDao implements LegendaDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	
 	@Override
 	public List<Legenda> getHornaPodlaId(Long id) {
 		return getLegendaLHPodlaId(id, true);
@@ -43,19 +41,17 @@ public class MysqlLegendaDao implements LegendaDao {
 						rs.getInt("riadok_stlpec"), rs.getInt("poradie"), rs.getInt("hodnota"));
 				return legenda;
 			}
-
 		});
-
 	}
-	
+
 	@Override
-	public void ulozit(List<Legenda> legenda, Long idKrizovky){
-		for(Legenda leg: legenda) {
+	public void ulozit(List<Legenda> legenda, Long idKrizovky) {
+		for (Legenda leg : legenda) {
 			leg.setKrizovkaId(idKrizovky);
 			ulozit(leg);
 		}
 	}
-	
+
 	private Legenda ulozit(Legenda legenda) {
 		if (legenda == null)
 			return null;
@@ -71,6 +67,7 @@ public class MysqlLegendaDao implements LegendaDao {
 		simpleJdbcInsert.execute(hodnoty);
 		return legenda;
 	}
+
 	@Override
 	public void vymazat(long krizovkaId) {
 		String sql = "DELETE FROM legenda WHERE krizovka_id = " + krizovkaId;

@@ -71,9 +71,9 @@ public class MysqlPolickoHryDao implements PolickoHryDao {
 			public PolickoHry mapRow(ResultSet rs, int row) throws SQLException {
 				Long id = rs.getLong("id");
 				Boolean stav = rs.getBoolean("stav");
-				if(rs.wasNull()) {
+				if (rs.wasNull()) {
 					stav = null;
-				}	
+				}
 				int surX = rs.getInt("sur_x");
 				int surY = rs.getInt("sur_y");
 				boolean pozadovanyStav = rs.getBoolean("pozadovany_stav");
@@ -82,7 +82,5 @@ public class MysqlPolickoHryDao implements PolickoHryDao {
 				return policko;
 			}
 		});
-
 	}
-
 }

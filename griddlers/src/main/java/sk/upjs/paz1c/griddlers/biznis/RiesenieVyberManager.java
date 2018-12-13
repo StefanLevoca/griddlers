@@ -10,15 +10,15 @@ import sk.upjs.paz1c.griddlers.persistentna.DaoFactory;
 import sk.upjs.paz1c.griddlers.persistentna.KrizovkaDao;
 
 public class RiesenieVyberManager {
-	
+
 	private KrizovkaDao krizovkaDao = DaoFactory.INSTANCE.getKrizovkaDao();
-	
+
 	public RiesenieVyberManager() {
-		
+
 	}
 
 	public ObservableList<Krizovka> zmenKrizovky(Narocnost narocnost) {
 		List<Krizovka> krizovkyList = krizovkaDao.getPodlaNarocnosti(narocnost);
-		return FXCollections.observableArrayList(krizovkyList);	
+		return FXCollections.observableArrayList(krizovkyList);
 	}
 }

@@ -27,7 +27,7 @@ class MysqlPolickoHryDaoTest {
 		polickoHry = polickoHryDao.ulozit(polickoHry);
 		assertNotNull(polickoHry.getId());
 	}
-	
+
 	@Test
 	void ulozitTest2() {
 		PolickoHry pol1 = new PolickoHry(null, 10, 4, true);
@@ -46,7 +46,7 @@ class MysqlPolickoHryDaoTest {
 		List<PolickoHry> polickaHry = polickoHryDao.getPodlaHraId(8L);
 		assertNotNull(polickaHry);
 	}
-	
+
 	@Test
 	void vymazatTest() {
 		PolickoHry polickoHry = new PolickoHry(null, 10, 5, true);

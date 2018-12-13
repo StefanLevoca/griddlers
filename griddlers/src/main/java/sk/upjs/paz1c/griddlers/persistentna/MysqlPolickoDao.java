@@ -6,9 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
@@ -25,30 +23,28 @@ public class MysqlPolickoDao implements PolickoDao {
 	@Override
 	public List<Policko> getPodlaId(Long krizovkaId) {
 		String sql = "SELECT id, sur_x, sur_y, stav FROM policko WHERE krizovka_id = ?";
-		Object[] parametre = new Object[] {krizovkaId};
+		Object[] parametre = new Object[] { krizovkaId };
 		return jdbcTemplate.query(sql, parametre, new RowMapper<Policko>() {
 			@Override
-			public Policko mapRow(ResultSet rs, int line) throws SQLException  {
+			public Policko mapRow(ResultSet rs, int line) throws SQLException {
 				Long id = rs.getLong("id");
 				int surX = rs.getInt("sur_x");
 				int surY = rs.getInt("sur_y");
 				boolean stav = rs.getBoolean("stav");
-				
+
 				return new Policko(id, stav, surX, surY);
 			}
 		});
-		
 	}
-	
+
 	@Override
 	public void ulozit(List<Policko> policka, Long idKrizovky) {
-		for(Policko pol: policka) {
+		for (Policko pol : policka) {
 			pol.setIdKrizovky(idKrizovky);
 			ulozit(pol);
 		}
-		
 	}
-	
+
 	private Policko ulozit(Policko policko) {
 		if (policko == null)
 			return null;

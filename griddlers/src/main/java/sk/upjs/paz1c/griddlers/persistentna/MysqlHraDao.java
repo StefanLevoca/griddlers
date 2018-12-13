@@ -3,7 +3,6 @@ package sk.upjs.paz1c.griddlers.persistentna;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +27,7 @@ public class MysqlHraDao implements HraDao {
 	}
 
 	public List<Hra> getVsetky() {
-		String sql = "SELECT id, pocet_tahov, cas_riesenia, ukoncena, zaciatok, koniec, krizovka_id"
-
-				+ " FROM hra";
+		String sql = "SELECT id, pocet_tahov, cas_riesenia, ukoncena, zaciatok, koniec, krizovka_id" + " FROM hra";
 		return jdbcTemplate.query(sql, new RowMapper<Hra>() {
 
 			@Override
@@ -50,9 +47,7 @@ public class MysqlHraDao implements HraDao {
 
 				return hra;
 			}
-
 		});
-
 	}
 
 	@Override
@@ -64,8 +59,8 @@ public class MysqlHraDao implements HraDao {
 			SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
 			simpleJdbcInsert.withTableName("hra");
 			simpleJdbcInsert.usingGeneratedKeyColumns("id");
-			simpleJdbcInsert.usingColumns("pocet_tahov", "cas_riesenia", "ukoncena", "zaciatok",
-					"koniec", "krizovka_id");
+			simpleJdbcInsert.usingColumns("pocet_tahov", "cas_riesenia", "ukoncena", "zaciatok", "koniec",
+					"krizovka_id");
 			Map<String, Object> hodnoty = new HashMap<>();
 			hodnoty.put("pocet_tahov", hra.getPocetTahov());
 			hodnoty.put("cas_riesenia", hra.getCasRiesenia());
@@ -75,9 +70,10 @@ public class MysqlHraDao implements HraDao {
 			hodnoty.put("krizovka_id", hra.getKrizovkaId());
 			Long id = simpleJdbcInsert.executeAndReturnKey(hodnoty).longValue();
 			hra.setId(id);
-		}else {
+		} else {
 			String sql = "UPDATE hra SET pocet_tahov = ?, cas_riesenia = ?, ukoncena = ?, koniec = ? WHERE id = ?";
-			jdbcTemplate.update(sql, hra.getPocetTahov(), hra.getCasRiesenia(), hra.isUkoncena(), hra.getKoniec(), hra.getId());
+			jdbcTemplate.update(sql, hra.getPocetTahov(), hra.getCasRiesenia(), hra.isUkoncena(), hra.getKoniec(),
+					hra.getId());
 		}
 		return hra;
 	}
@@ -143,7 +139,6 @@ public class MysqlHraDao implements HraDao {
 				krizovka.setLegendaL(legendaDao.getLavaPodlaId(krizovka.getId()));
 
 				return krizovka;
-
 			}
 		}).get(0);
 	}

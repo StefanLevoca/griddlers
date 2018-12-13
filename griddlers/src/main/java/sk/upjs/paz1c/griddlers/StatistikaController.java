@@ -1,8 +1,5 @@
 package sk.upjs.paz1c.griddlers;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -53,7 +49,7 @@ public class StatistikaController extends Controller {
 
 	@FXML
 	void initialize() {
-		
+
 		ObservableList<Obdobie> obdobia = FXCollections.observableArrayList(Obdobie.VSETKY, Obdobie.DEN, Obdobie.TYZDEN,
 				Obdobie.MESIAC);
 		obdobieComboBox.setItems(obdobia);
@@ -69,17 +65,12 @@ public class StatistikaController extends Controller {
 		});
 
 		nazovKrizovkyTableColumn.setCellValueFactory(new PropertyValueFactory<Hra, String>("nazovKrizovky"));
-		//casTableColumn.setCellValueFactory(new PropertyValueFactory<Hra, LocalDateTime>("casRiesenia"));
-		
-		casTableColumn.setCellValueFactory(c -> new SimpleStringProperty(manager.formatujCas(c.getValue().getCasRiesenia())));;
-
+		casTableColumn
+				.setCellValueFactory(c -> new SimpleStringProperty(manager.formatujCas(c.getValue().getCasRiesenia())));
 		pocetTahovTableColumn.setCellValueFactory(new PropertyValueFactory<Hra, Integer>("pocetTahov"));
-		// datumUkonceniaTableColumn.setCellValueFactory(new PropertyValueFactory<Hra,
-		// LocalDateTime>("koniec"));
+		datumUkonceniaTableColumn
+				.setCellValueFactory(c -> new SimpleStringProperty(Hra.preformatujCas(c.getValue().getKoniec())));
 
-		datumUkonceniaTableColumn.setCellValueFactory(c -> new SimpleStringProperty(Hra.preformatujCas(c.getValue().getKoniec())));
-	
-		
 		statistikaTableView.setItems(hry);
 	}
 

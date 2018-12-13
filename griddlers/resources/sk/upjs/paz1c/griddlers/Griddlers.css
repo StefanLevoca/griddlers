@@ -1,0 +1,148 @@
+/* 
+    Project   : Griddlers
+*/
+
+.anchorPane{
+    -fx-background: #525B56;
+}
+
+.borderPane{
+    -fx-background: #525B56;
+}
+
+.pane{
+    -fx-background: #525B56;
+}
+
+.vBox{
+	-fx-background: #DFCFBE;
+}
+
+.canvas{
+	-fx-background: #DFCFBE;
+}
+
+.button{
+    -fx-background-color: #BE9063;
+	-fx-text-fill: #ffffff;
+	-fx-alignment: CENTER;
+}
+
+.button:pressed{
+    -fx-background-color: #D2B393;
+	-fx-text-fill: #ffffff;
+	-fx-alignment: CENTER;
+}
+
+.button:hover{
+    -fx-background-color: #755139;
+	-fx-text-fill: #ffffff;
+	-fx-alignment: CENTER;
+}
+
+.comboBox{
+    -fx-background-color: #BE9063;
+	-fx-text-fill: #ffffff;
+	-fx-alignment: CENTER;
+}
+
+.comboBox:pressed{
+    -fx-background-color: #D2B393;
+	-fx-text-fill: #ffffff;
+	-fx-alignment: CENTER;
+}
+
+.comboBox:hover{
+    -fx-background-color: #755139;
+	-fx-text-fill: #ffffff;
+	-fx-alignment: CENTER;
+}
+
+.label{
+	-fx-text-fill: #ffffff;
+	-fx-alignment: CENTER;
+}
+
+.textField{
+	-fx-background-color: #F0EAD6;
+	-fx-text-fill: #111111;
+	-fx-alignment: CENTER;
+}
+
+.textField:pressed{
+	-fx-background-color: #B18F6A;
+	-fx-text-fill: #111111;
+	-fx-alignment: CENTER;
+}
+
+.textField:hover{
+	-fx-background-color: #9896A4;
+	-fx-text-fill: #111111;
+	-fx-alignment: CENTER;
+}
+
+.tableView:{
+    -fx-background-color: #F0EDE5;
+	-fx-text-fill: #111111;
+	-fx-alignment: CENTER;
+}
+
+.tableView:pressed{
+    -fx-background-color: #898E8C;
+	-fx-text-fill: #111111;
+	-fx-alignment: CENTER;
+}
+
+.tableView:hover{
+    -fx-background-color: #CFB095;
+	-fx-text-fill: #111111;
+	-fx-alignment: CENTER;
+}
+
+.listView:{
+    -fx-background-color: #F1EA7F;
+	-fx-text-fill: #111111;
+	-fx-alignment: CENTER;
+}
+
+.listView:pressed{
+    -fx-background-color: #ECDB54;
+	-fx-text-fill: #111111;
+	-fx-alignment: CENTER;
+}
+
+.listView:hover{
+    -fx-background-color: #F6D155;
+	-fx-text-fill: #111111;
+	-fx-alignment: CENTER;
+}
+
+.tableColumn:{
+    -fx-background-color: #F0EDE5;
+	-fx-text-fill: #111111;
+	-fx-alignment: LEFT;
+}
+
+.tableColumn:pressed{
+    -fx-background-color: #898E8C;
+	-fx-text-fill: #111111;
+	-fx-alignment: CENTER;
+}
+
+.tableColumn:hover{
+    -fx-background-color: #CFB095;
+	-fx-text-fill: #111111;
+	-fx-alignment: CENTER;
+}
+
+.checkBox:{
+    -fx-background-color: #EAE6DA;
+}
+
+.checkBox:pressed{
+    -fx-background-color: #BCBCBE;
+}
+
+.checkBox:hover{
+    -fx-background-color: #D1B894;
+}

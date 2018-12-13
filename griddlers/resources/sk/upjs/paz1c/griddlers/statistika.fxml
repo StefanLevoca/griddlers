@@ -8,27 +8,27 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="anchorPane" stylesheets="@Griddlers.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="statistikaTableView" layoutX="44.0" layoutY="108.0" prefHeight="200.0" prefWidth="513.0">
+      <TableView fx:id="statistikaTableView" layoutX="44.0" layoutY="108.0" prefHeight="200.0" prefWidth="513.0" style="-fx-background-color: #766F57;" styleClass="tableView" stylesheets="@Griddlers.css">
          <columns>
             <TableColumn fx:id="nazovKrizovkyTableColumn" prefWidth="138.0" text="Názov krížovky" />
             <TableColumn fx:id="casTableColumn" prefWidth="107.0" text="Čas" />
             <TableColumn fx:id="pocetTahovTableColumn" prefWidth="138.0" text="Počet ťahov" />
             <TableColumn fx:id="datumUkonceniaTableColumn" prefWidth="128.0" text="Dátum ukončenia" />
          </columns></TableView>
-      <Label fx:id="obdobieLabel" layoutX="44.0" layoutY="48.0" text="Obdobie:">
+      <Label fx:id="obdobieLabel" layoutX="44.0" layoutY="48.0" stylesheets="@Griddlers.css" text="Obdobie:">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <ComboBox fx:id="obdobieComboBox" layoutX="163.0" layoutY="50.0" prefWidth="150.0" />
-      <Button fx:id="spatButton" layoutX="59.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleSpatButtonAction" text="Späť">
+      <ComboBox fx:id="obdobieComboBox" layoutX="163.0" layoutY="50.0" prefWidth="150.0" styleClass="comboBox" stylesheets="@Griddlers.css" />
+      <Button fx:id="spatButton" layoutX="59.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleSpatButtonAction" stylesheets="@Griddlers.css" text="Späť">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Label fx:id="statistikaHierLabel" layoutX="429.0" layoutY="14.0" text="Štatistika hier">
+      <Label fx:id="statistikaHierLabel" layoutX="429.0" layoutY="14.0" stylesheets="@Griddlers.css" text="Štatistika hier">
          <font>
             <Font size="23.0" />
          </font>
