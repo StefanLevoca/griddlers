@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import sk.upjs.paz1c.griddlers.entity.Krizovka;
 import sk.upjs.paz1c.griddlers.entity.Legenda;
-import sk.upjs.paz1c.griddlers.entity.Narocnost;
 import sk.upjs.paz1c.griddlers.entity.Policko;
 import sk.upjs.paz1c.griddlers.persistentna.DaoFactory;
 import sk.upjs.paz1c.griddlers.persistentna.KrizovkaDao;

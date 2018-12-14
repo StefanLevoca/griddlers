@@ -11,10 +11,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
+import sk.upjs.paz1c.griddlers.Narocnost;
+import sk.upjs.paz1c.griddlers.Obdobie;
 import sk.upjs.paz1c.griddlers.entity.Hra;
 import sk.upjs.paz1c.griddlers.entity.Krizovka;
-import sk.upjs.paz1c.griddlers.entity.Narocnost;
-import sk.upjs.paz1c.griddlers.entity.Obdobie;
 
 public class MysqlHraDao implements HraDao {
 

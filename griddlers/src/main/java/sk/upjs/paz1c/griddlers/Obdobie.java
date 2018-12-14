@@ -1,4 +1,4 @@
-package sk.upjs.paz1c.griddlers.entity;
+package sk.upjs.paz1c.griddlers;
 
 public enum Obdobie {
 	DEN("Deň"), TYZDEN("Týždeň"), MESIAC("Mesiac"), VSETKY("Všetky");

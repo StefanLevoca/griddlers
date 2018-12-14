@@ -10,7 +10,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import sk.upjs.paz1c.griddlers.KrizovkaFxModel;
-import sk.upjs.paz1c.griddlers.entity.Narocnost;
 
 public class VytvZadanieVstupovController extends Controller {
 
@@ -54,7 +53,7 @@ public class VytvZadanieVstupovController extends Controller {
 	@FXML
 	void handleZacatButtonAction(ActionEvent event) {
 		String nazov = krizovkaModel.getNazov();
-		if (nazov == null || nazov.equals("") || nazov.length() > 15) {
+		if (nazov == null || nazov.equals("") || nazov.length() > 10) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Upozornenie");
 			alert.setHeaderText("Chybný názov!");

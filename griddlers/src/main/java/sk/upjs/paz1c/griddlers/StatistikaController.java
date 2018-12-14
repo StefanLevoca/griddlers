@@ -14,7 +14,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sk.upjs.paz1c.griddlers.biznis.StatistikaManager;
 import sk.upjs.paz1c.griddlers.entity.Hra;
-import sk.upjs.paz1c.griddlers.entity.Obdobie;
 
 public class StatistikaController extends Controller {
 

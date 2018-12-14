@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class Controller {
+public abstract class Controller {
 
 	public void novaScena(Controller controller, String fxmlSubor, Button komponent) {
 		try {

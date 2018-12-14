@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import sk.upjs.paz1c.griddlers.entity.Hra;
 import sk.upjs.paz1c.griddlers.entity.Krizovka;
-import sk.upjs.paz1c.griddlers.entity.Obdobie;
 import sk.upjs.paz1c.griddlers.persistentna.DaoFactory;
 import sk.upjs.paz1c.griddlers.persistentna.HraDao;
 
@@ -32,7 +31,7 @@ class MysqlHraDaoTest {
 		hra.setCasRiesenia(60);
 		hra.setUkoncena(true);
 		hra.setZaciatok(LocalDateTime.of(2018, 11, 18, 18, 52));
-		hra.setPoslednyMedzicas(LocalDateTime.of(2018, 11, 18, 18, 59));
+		hra.setMedzicas(LocalDateTime.of(2018, 11, 18, 18, 59));
 		hra.setKoniec(LocalDateTime.of(2018, 11, 18, 19, 52));
 		hra.setKrizovkaId(34L);
 		hraDao.ulozit(hra);
@@ -48,7 +47,7 @@ class MysqlHraDaoTest {
 		hra.setCasRiesenia(60);
 		hra.setUkoncena(true);
 		hra.setZaciatok(LocalDateTime.of(2018, 11, 18, 18, 52, 20));
-		hra.setPoslednyMedzicas(LocalDateTime.of(2018, 11, 18, 14, 52, 20));
+		hra.setMedzicas(LocalDateTime.of(2018, 11, 18, 14, 52, 20));
 		hra.setKoniec(LocalDateTime.of(2018, 11, 18, 19, 52, 18));
 		hraDao.ulozit(hra);
 		hra.setPocetTahov(55);
@@ -71,7 +70,7 @@ class MysqlHraDaoTest {
 		hra.setCasRiesenia(60);
 		hra.setUkoncena(true);
 		hra.setZaciatok(LocalDateTime.of(2018, 11, 18, 18, 52));
-		hra.setPoslednyMedzicas(LocalDateTime.of(2018, 11, 18, 18, 55, 5));
+		hra.setMedzicas(LocalDateTime.of(2018, 11, 18, 18, 55, 5));
 		hra.setKoniec(LocalDateTime.of(2018, 11, 18, 19, 52));
 		hraDao.ulozit(hra);
 		Long id = hra.getId();

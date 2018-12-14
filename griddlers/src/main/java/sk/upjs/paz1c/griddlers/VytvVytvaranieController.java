@@ -83,11 +83,18 @@ public class VytvVytvaranieController extends Controller {
 		manager.canvasReset(krizovkaCanvas);
 		manager.vyplnRiesenieFalse();
 	}
+	
+	
 
 	@FXML
 	void handleSpatButtonAction(ActionEvent event) {
 		Controller mainController = new VytvZadanieVstupovController();
 		novaScena(mainController, "vytv_zadanie_vst.fxml", spatButton);
+	}
+	
+	@FXML
+	void handleCanvasOnDraggedAction(MouseEvent event) {
+		canvasOnMousePressed(event);
 	}
 
 	@FXML

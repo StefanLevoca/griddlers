@@ -14,7 +14,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sk.upjs.paz1c.griddlers.biznis.RiesenieVyberManager;
 import sk.upjs.paz1c.griddlers.entity.Krizovka;
-import sk.upjs.paz1c.griddlers.entity.Narocnost;
 
 public class RiesenieVyberController extends Controller {
 

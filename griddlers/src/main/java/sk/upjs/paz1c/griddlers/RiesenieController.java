@@ -55,7 +55,7 @@ public class RiesenieController extends Controller {
 		this.hra = new Hra();
 		hra.setKrizovkaId(krizovka.getId());
 		hra.setZaciatok(LocalDateTime.now(ZoneId.systemDefault()));
-		hra.setPoslednyMedzicas(hra.getZaciatok());
+		hra.setMedzicas(LocalDateTime.now(ZoneId.systemDefault()));
 		manager = new RiesenieManager(krizovka);
 		hra.setPolickaHry(manager.inicializujPolickaHry());
 	}
@@ -63,7 +63,7 @@ public class RiesenieController extends Controller {
 	public RiesenieController(Hra hra) {
 		this.hra = hra;
 		this.hra.setPolickaHry(polickoHryDao.getPodlaHraId(hra.getId()));
-		this.hra.setPoslednyMedzicas(LocalDateTime.now(ZoneId.systemDefault()));
+		this.hra.setMedzicas(LocalDateTime.now(ZoneId.systemDefault()));
 		this.krizovka = hraDao.getKrizovkaPodlaHraId(hra.getId());
 		manager = new RiesenieManager(krizovka);
 	}

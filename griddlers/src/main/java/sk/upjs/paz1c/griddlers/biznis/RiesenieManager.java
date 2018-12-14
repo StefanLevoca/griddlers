@@ -63,7 +63,6 @@ public class RiesenieManager extends Platnovac {
 
 	}
 
-	// TODO napisat test
 	// nastavi sa pozadovany stav policok hry
 	public List<PolickoHry> inicializujPolickaHry() {
 		List<PolickoHry> polickaHry = new ArrayList<>();
@@ -134,7 +133,6 @@ public class RiesenieManager extends Platnovac {
 		gc.fillText(Integer.toString(hodnota), x1, y1);
 	}
 
-	// TODO spravit test
 	// metoda na zistenie maximalneho poctu cisiel v jednom riadku/stlpci legendy
 	// (kvoli prisposobeniu okna)
 	public int zistiPocetPotrebnych(boolean horna) {
@@ -153,7 +151,6 @@ public class RiesenieManager extends Platnovac {
 		return maxPoradie + 1;
 	}
 
-	// TODO spravit test
 	// metoda ktora sa vola pri kazdom kliku na krizovku a overuje ci uz nahodou
 	// krizovka nie je vyriesena
 	public boolean overRiesenie(List<PolickoHry> polickaHry) {
@@ -171,10 +168,9 @@ public class RiesenieManager extends Platnovac {
 		return true;
 	}
 
-	// TODO testy
 	public long novyCasRiesenia(Hra hra) {
 		long casRiesenia = hra.getCasRiesenia();
-		long sekundy = ChronoUnit.SECONDS.between(hra.getPoslednyMedzicas(), LocalDateTime.now(ZoneId.systemDefault()));
+		long sekundy = ChronoUnit.SECONDS.between(hra.getMedzicas(), LocalDateTime.now(ZoneId.systemDefault()));
 		return casRiesenia + sekundy;
 	}
 

@@ -35,9 +35,6 @@ public class VytvVytvaranieManager extends Platnovac {
 		} else if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
 			kresliStvorec(platno.getGraphicsContext2D(), x1 * VELKOST_POLICKA, y1 * VELKOST_POLICKA, Color.WHITE);
 			return new Policko(false, x1, y1);
-		} else if (event.getButton().equals(MouseButton.SECONDARY)) {
-			kresliBodku(platno.getGraphicsContext2D(), x1 * VELKOST_POLICKA, y1 * VELKOST_POLICKA);
-			return new Policko(false, x1, y1);
 		}
 		return null;
 	}

@@ -2,6 +2,8 @@ package sk.upjs.paz1c.griddlers.entity;
 
 import java.util.List;
 
+import sk.upjs.paz1c.griddlers.Narocnost;
+
 public class Krizovka {
 
 	private Long id;

@@ -1,4 +1,4 @@
-package sk.upjs.paz1c.griddlers.entity;
+package sk.upjs.paz1c.griddlers;
 
 public enum Narocnost {
 	LAHKA("Ľahká"), STREDNA("Stredná"), TAZKA("Ťažká");

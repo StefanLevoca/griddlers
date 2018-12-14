@@ -9,7 +9,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import sk.upjs.paz1c.griddlers.entity.Krizovka;
 import sk.upjs.paz1c.griddlers.entity.Legenda;
-import sk.upjs.paz1c.griddlers.entity.Narocnost;
 import sk.upjs.paz1c.griddlers.entity.Policko;
 
 public class KrizovkaFxModel {

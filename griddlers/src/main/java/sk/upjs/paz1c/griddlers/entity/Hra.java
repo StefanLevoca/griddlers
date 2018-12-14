@@ -15,14 +15,13 @@ public class Hra {
 	private boolean ukoncena;
 	private LocalDateTime zaciatok;
 	private LocalDateTime medzicas;
-	private LocalDateTime poslednyMedzicas;
 	private LocalDateTime koniec;
 
 	@Override
 	public String toString() {
 
-		return "ID: " + id + " Naposledy hraná: " + preformatujCas(poslednyMedzicas) + " Počet ťahov: " + pocetTahov
-				+ " Čas riešenia: " + casRiesenia;
+		return "ID: " + id + ", Počet ťahov: " + pocetTahov
+				+ ", Čas riešenia: " + casRiesenia + ", Čas začiatku: " + preformatujCas(zaciatok);
 	}
 
 	public static String preformatujCas(LocalDateTime cas) {
@@ -100,14 +99,6 @@ public class Hra {
 
 	public void setMedzicas(LocalDateTime medzicas) {
 		this.medzicas = medzicas;
-	}
-
-	public LocalDateTime getPoslednyMedzicas() {
-		return poslednyMedzicas;
-	}
-
-	public void setPoslednyMedzicas(LocalDateTime poslednyMedzicas) {
-		this.poslednyMedzicas = poslednyMedzicas;
 	}
 
 	public LocalDateTime getKoniec() {
