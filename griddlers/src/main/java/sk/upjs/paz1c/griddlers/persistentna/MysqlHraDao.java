@@ -79,8 +79,8 @@ public class MysqlHraDao implements HraDao {
 	}
 
 	@Override
-	public void vymazat(long hra_id) {
-		String sql = String.format("DELETE FROM hra WHERE id = %d", hra_id);
+	public void vymazat(long hraId) {
+		String sql = String.format("DELETE FROM hra WHERE id = %d", hraId);
 		jdbcTemplate.update(sql);
 	}
 

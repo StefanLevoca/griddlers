@@ -16,7 +16,7 @@ import sk.upjs.paz1c.griddlers.entity.Policko;
 
 public class VytvVytvaranieManager extends Platnovac {
 
-	private static final int VELKOST_POLICKA = VytvVytvaranieController.VELKOST_POLICKA;
+	private static final int VELKOST_POLICKA = Platnovac.VELKOST_POLICKA;
 
 	private Krizovka krizovka;
 

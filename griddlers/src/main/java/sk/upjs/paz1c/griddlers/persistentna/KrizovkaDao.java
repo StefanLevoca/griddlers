@@ -13,6 +13,6 @@ public interface KrizovkaDao {
 
 	Krizovka ulozit(Krizovka krizovka);
 
-	void vymazat(long krizovka_id);
+	void vymazat(Long krizovkaId);
 
 }

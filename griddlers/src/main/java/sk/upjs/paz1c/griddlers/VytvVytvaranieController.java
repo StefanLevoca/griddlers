@@ -10,6 +10,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import sk.upjs.paz1c.griddlers.biznis.Platnovac;
 import sk.upjs.paz1c.griddlers.biznis.VytvVytvaranieManager;
 import sk.upjs.paz1c.griddlers.entity.Krizovka;
 import sk.upjs.paz1c.griddlers.entity.Policko;
@@ -18,8 +19,8 @@ import sk.upjs.paz1c.griddlers.persistentna.KrizovkaDao;
 
 public class VytvVytvaranieController extends Controller {
 
-	public static final int VELKOST_POLICKA = 15;
-	public static final int DEFAULT_VELKOST = 15;
+	private static final int VELKOST_POLICKA = Platnovac.VELKOST_POLICKA;
+	private static final int DEFAULT_VELKOST = Platnovac.DEFAULT_VELKOST;
 
 	@FXML
 	private BorderPane borderPane;

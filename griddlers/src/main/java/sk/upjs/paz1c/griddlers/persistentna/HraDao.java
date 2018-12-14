@@ -11,7 +11,7 @@ public interface HraDao {
 
 	Hra ulozit(Hra hra);
 
-	void vymazat(long hra_id);
+	void vymazat(long hraId);
 
 	public List<Hra> getPodlaObdobia(Obdobie obdobie);
 

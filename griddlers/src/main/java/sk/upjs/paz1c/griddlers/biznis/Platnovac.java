@@ -7,7 +7,10 @@ import sk.upjs.paz1c.griddlers.VytvVytvaranieController;
 
 public abstract class Platnovac {
 
-	protected static final int VELKOST_POLICKA = VytvVytvaranieController.VELKOST_POLICKA;
+	
+	public static final int VELKOST_POLICKA = 15;
+	public static final int DEFAULT_VELKOST = 15;
+	
 
 	// samopopisujuci nazov
 	public void vytvorMriezku(Canvas platno) {

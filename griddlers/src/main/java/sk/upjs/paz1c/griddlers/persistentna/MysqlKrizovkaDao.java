@@ -81,8 +81,8 @@ public class MysqlKrizovkaDao implements KrizovkaDao {
 	}
 
 	@Override
-	public void vymazat(long krizovka_id) {
-		String sql = String.format("DELETE FROM krizovka WHERE id = %d", krizovka_id);
+	public void vymazat(Long krizovkaId) {
+		String sql = String.format("DELETE FROM krizovka WHERE id = %d", krizovkaId);
 		jdbcTemplate.update(sql);
 	}
 

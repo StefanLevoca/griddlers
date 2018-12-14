@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import sk.upjs.paz1c.griddlers.biznis.Platnovac;
 import sk.upjs.paz1c.griddlers.biznis.RiesenieManager;
 import sk.upjs.paz1c.griddlers.entity.Hra;
 import sk.upjs.paz1c.griddlers.entity.Krizovka;
@@ -23,8 +24,8 @@ import sk.upjs.paz1c.griddlers.persistentna.PolickoHryDao;
 
 public class RiesenieController extends Controller {
 
-	private static final int VELKOST_POLICKA = VytvVytvaranieController.VELKOST_POLICKA;
-	private static final int DEFAULT_VELKOST = VytvVytvaranieController.DEFAULT_VELKOST;
+	private static final int VELKOST_POLICKA = Platnovac.VELKOST_POLICKA;
+	private static final int DEFAULT_VELKOST = Platnovac.DEFAULT_VELKOST;
 
 	@FXML
 	private AnchorPane anchorPane;
@@ -76,12 +77,15 @@ public class RiesenieController extends Controller {
 		anchorPane.setPrefWidth(anchorPane.getPrefWidth() + (sirka - DEFAULT_VELKOST) * VELKOST_POLICKA);
 		krizovkaCanvas.setHeight(vyska * VELKOST_POLICKA);
 		krizovkaCanvas.setWidth(sirka * VELKOST_POLICKA);
+		manager.kresliBielePlatno(krizovkaCanvas);
 		int pocetPotrebnychL = manager.zistiPocetPotrebnych(false);
 		int pocetPotrebnychH = manager.zistiPocetPotrebnych(true);
 		legendaLCanvas.setHeight(legendaLCanvas.getHeight() + (vyska - DEFAULT_VELKOST) * VELKOST_POLICKA);
 		legendaLCanvas.setWidth(pocetPotrebnychL * VELKOST_POLICKA);
 		legendaHCanvas.setWidth(legendaHCanvas.getWidth() + (sirka - DEFAULT_VELKOST) * VELKOST_POLICKA);
 		legendaHCanvas.setHeight(pocetPotrebnychH * VELKOST_POLICKA);
+		manager.kresliBielePlatno(legendaHCanvas);
+		manager.kresliBielePlatno(legendaLCanvas);
 		manager.vytvorMriezku(krizovkaCanvas);
 		manager.vytvorMriezku(legendaHCanvas, Color.rgb(0, 0, 0, 0.5));
 		manager.vytvorMriezku(legendaLCanvas, Color.rgb(0, 0, 0, 0.5));
@@ -106,8 +110,9 @@ public class RiesenieController extends Controller {
 	@FXML
 	void handleCanvasOnPressedAction(MouseEvent event) {
 		List<PolickoHry> polickaHry = hra.getPolickaHry();
+		manager.zvysPocetTahov(event, hra);
 		PolickoHry policko = manager.spracujKlik(event, krizovkaCanvas);
-		hra.setPocetTahov(hra.getPocetTahov() + 1);
+			
 		for (PolickoHry pol : polickaHry) {
 			if (pol.equals(policko)) {
 				pol.setStav(policko.getStav());

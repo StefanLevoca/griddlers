@@ -27,6 +27,13 @@ public class RiesenieManager extends Platnovac {
 		this.krizovka = krizovka;
 		this.legendaDao = DaoFactory.INSTANCE.getLegendaDao();
 	}
+	
+	public void kresliBielePlatno(Canvas platno) {
+		GraphicsContext gc = platno.getGraphicsContext2D();
+		gc.setFill(Color.WHITE);
+		gc.fillRect(0, 0, platno.getWidth(), platno.getHeight());
+		gc.setFill(Color.BLACK);
+	}
 
 	// metoda urcena na vytvaranie mriezky legendy
 	public void vytvorMriezku(Canvas platno, Color farba) {
@@ -172,6 +179,35 @@ public class RiesenieManager extends Platnovac {
 		long casRiesenia = hra.getCasRiesenia();
 		long sekundy = ChronoUnit.SECONDS.between(hra.getMedzicas(), LocalDateTime.now(ZoneId.systemDefault()));
 		return casRiesenia + sekundy;
+	}
+	
+	// metoda na zvacsovanie premennej pocetTahov
+	// otestovane priamo v programe
+	public void zvysPocetTahov(MouseEvent event, Hra hra) {
+		int pocetTahov = hra.getPocetTahov();
+		int x1 = (int)(event.getX() / VELKOST_POLICKA);
+		int y1 = (int)(event.getY() / VELKOST_POLICKA);
+		for(PolickoHry policko: hra.getPolickaHry()) {
+			if(policko.getSurX() == x1 && policko.getSurY() == y1) {
+				int pocetKlikov = event.getClickCount();
+				MouseButton tlacitko = event.getButton();
+				if(tlacitko.equals(MouseButton.PRIMARY) && pocetKlikov == 2 && policko.getStav() == null) {
+					return;
+				}
+				if(tlacitko.equals(MouseButton.PRIMARY) && pocetKlikov == 1 && policko.getStav() != null && policko.getStav() == true) {
+					return;
+				}
+				if(tlacitko.equals(MouseButton.SECONDARY) && pocetKlikov >= 1 && policko.getStav() != null && policko.getStav() == false) {
+					return;
+				}
+				break;
+			}
+		}
+		
+		if(event.getClickCount() != 2) {
+			pocetTahov++;
+		}
+		hra.setPocetTahov(pocetTahov);
 	}
 
 }
