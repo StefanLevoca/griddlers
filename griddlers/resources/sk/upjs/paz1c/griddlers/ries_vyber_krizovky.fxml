@@ -17,7 +17,7 @@
          </font>
       </Label>
       <CheckBox fx:id="zobrazitNazvyCheckBox" layoutX="556.0" layoutY="54.0" mnemonicParsing="false" styleClass="checkBox" stylesheets="@Griddlers.css" />
-      <ComboBox fx:id="narocnostComboBox" layoutX="149.0" layoutY="50.0" prefWidth="150.0" promptText="Náročnosť " styleClass="comboBox" stylesheets="@Griddlers.css" visibleRowCount="3" />
+      <ComboBox fx:id="narocnostComboBox" layoutX="149.0" layoutY="50.0" prefWidth="150.0" promptText="Náročnosť " stylesheets="@Griddlers.css" visibleRowCount="3" />
       <Button fx:id="spatButton" layoutX="13.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleSpatButtonAction" stylesheets="@Griddlers.css" text="Späť">
          <font>
             <Font size="21.0" />
@@ -28,7 +28,7 @@
             <Font size="23.0" />
          </font>
       </Button>
-      <TableView fx:id="krizovkyTableView" layoutX="31.0" layoutY="88.0" prefHeight="238.0" prefWidth="536.0" style="-fx-background-color: #766F57;" styleClass="tableView" stylesheets="@Griddlers.css">
+      <TableView fx:id="krizovkyTableView" layoutX="31.0" layoutY="88.0" prefHeight="238.0" prefWidth="536.0" style="-fx-background-color: #D2691E;">
          <columns>
             <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="narocnostTableColumn" prefWidth="94.4000244140625" text="Náročnosť" />

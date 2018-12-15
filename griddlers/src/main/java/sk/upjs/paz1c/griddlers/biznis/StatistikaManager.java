@@ -23,8 +23,9 @@ public class StatistikaManager {
 
 	public String formatujCas(long cas) {
 		long sekundy = cas % 60;
-		long minuty = cas / 60;
-		long hodiny = cas / 3600;
+		cas = cas / 60;
+		long minuty = cas % 60;
+		long hodiny = cas / 60;
 		return String.format("%d:%d:%d", hodiny, minuty, sekundy);
 	}
 }

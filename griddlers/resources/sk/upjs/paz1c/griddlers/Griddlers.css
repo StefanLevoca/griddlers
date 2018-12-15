@@ -18,10 +18,6 @@
 	-fx-background: #DFCFBE;
 }
 
-.canvas{
-	-fx-background: #DFCFBE;
-}
-
 .button{
     -fx-background-color: #BE9063;
 	-fx-text-fill: #ffffff;
@@ -35,24 +31,6 @@
 }
 
 .button:hover{
-    -fx-background-color: #755139;
-	-fx-text-fill: #ffffff;
-	-fx-alignment: CENTER;
-}
-
-.comboBox{
-    -fx-background-color: #BE9063;
-	-fx-text-fill: #ffffff;
-	-fx-alignment: CENTER;
-}
-
-.comboBox:pressed{
-    -fx-background-color: #D2B393;
-	-fx-text-fill: #ffffff;
-	-fx-alignment: CENTER;
-}
-
-.comboBox:hover{
     -fx-background-color: #755139;
 	-fx-text-fill: #ffffff;
 	-fx-alignment: CENTER;
@@ -77,60 +55,6 @@
 
 .textField:hover{
 	-fx-background-color: #9896A4;
-	-fx-text-fill: #111111;
-	-fx-alignment: CENTER;
-}
-
-.tableView:{
-    -fx-background-color: #F0EDE5;
-	-fx-text-fill: #111111;
-	-fx-alignment: CENTER;
-}
-
-.tableView:pressed{
-    -fx-background-color: #898E8C;
-	-fx-text-fill: #111111;
-	-fx-alignment: CENTER;
-}
-
-.tableView:hover{
-    -fx-background-color: #CFB095;
-	-fx-text-fill: #111111;
-	-fx-alignment: CENTER;
-}
-
-.listView:{
-    -fx-background-color: #F1EA7F;
-	-fx-text-fill: #111111;
-	-fx-alignment: CENTER;
-}
-
-.listView:pressed{
-    -fx-background-color: #ECDB54;
-	-fx-text-fill: #111111;
-	-fx-alignment: CENTER;
-}
-
-.listView:hover{
-    -fx-background-color: #F6D155;
-	-fx-text-fill: #111111;
-	-fx-alignment: CENTER;
-}
-
-.tableColumn:{
-    -fx-background-color: #F0EDE5;
-	-fx-text-fill: #111111;
-	-fx-alignment: LEFT;
-}
-
-.tableColumn:pressed{
-    -fx-background-color: #898E8C;
-	-fx-text-fill: #111111;
-	-fx-alignment: CENTER;
-}
-
-.tableColumn:hover{
-    -fx-background-color: #CFB095;
 	-fx-text-fill: #111111;
 	-fx-alignment: CENTER;
 }

@@ -18,7 +18,7 @@
             <Font size="23.0" />
          </font>
       </Button>
-      <ListView fx:id="nedorieseneListView" layoutX="39.0" layoutY="119.0" prefHeight="200.0" prefWidth="522.0" style="-fx-background-color: #FFD662;" styleClass="listView" stylesheets="@Griddlers.css" />
+      <ListView fx:id="nedorieseneListView" layoutX="39.0" layoutY="119.0" prefHeight="200.0" prefWidth="522.0" style="-fx-background-color: #F5F5DC;" stylesheets="@Griddlers.css" />
       <Button fx:id="spatButton" layoutX="39.0" layoutY="339.0" mnemonicParsing="false" onAction="#handleSpatButtonAction" stylesheets="@Griddlers.css" text="Späť">
          <font>
             <Font size="21.0" />

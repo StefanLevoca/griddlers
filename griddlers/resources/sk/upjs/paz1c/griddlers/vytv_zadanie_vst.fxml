@@ -29,10 +29,10 @@
             <Font size="23.0" />
          </font>
       </Label>
-      <ComboBox fx:id="sirkaComboBox" layoutX="194.0" layoutY="69.0" prefWidth="150.0" styleClass="comboBox" stylesheets="@Griddlers.css" />
-      <ComboBox fx:id="vyskaComboBox" layoutX="194.0" layoutY="119.0" prefWidth="150.0" styleClass="comboBox" stylesheets="@Griddlers.css" />
+      <ComboBox fx:id="sirkaComboBox" layoutX="194.0" layoutY="69.0" prefWidth="150.0" stylesheets="@Griddlers.css" />
+      <ComboBox fx:id="vyskaComboBox" layoutX="194.0" layoutY="119.0" prefWidth="150.0" stylesheets="@Griddlers.css" />
       <TextField fx:id="nazovTextField" layoutX="194.0" layoutY="165.0" promptText="Názov" styleClass="textField" stylesheets="@Griddlers.css" />
-      <ComboBox fx:id="narocnostComboBox" layoutX="194.0" layoutY="206.0" prefWidth="150.0" promptText="Náročnosť" styleClass="comboBox" stylesheets="@Griddlers.css" />
+      <ComboBox fx:id="narocnostComboBox" layoutX="194.0" layoutY="206.0" prefWidth="150.0" promptText="Náročnosť" stylesheets="@Griddlers.css" />
       <Button fx:id="spatButton" layoutX="51.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleSpatButtonAction" stylesheets="@Griddlers.css" text="Späť">
          <font>
             <Font size="20.0" />
