@@ -145,7 +145,6 @@ public class VytvVytvaranieManager extends Platnovac {
 		List<Policko> riesenieList = krizovka.getRiesenie();
 		int vyska = krizovka.getVyska();
 		int sirka = krizovka.getSirka();
-		System.out.println(vyska + " " + sirka);
 		boolean[][] rieseniePole = new boolean[vyska][sirka];
 		int riadok;
 		int stlpec;

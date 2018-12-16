@@ -91,24 +91,24 @@ public class StatistikaManagerTest {
 		hra1.setPocetTahov(10);
 		hra1.setCasRiesenia(100L);
 		hra1.setUkoncena(true);
-		hra1.setZaciatok(LocalDateTime.of(2018, 12, 14, 14, 00));
-		hra1.setMedzicas(LocalDateTime.of(2018, 12, 14, 16, 00));
-		hra1.setKoniec(LocalDateTime.now().minusMinutes(2));
+		hra1.setZaciatok(LocalDateTime.of(2018, 1, 14, 14, 00));
+		hra1.setMedzicas(LocalDateTime.of(2018, 1, 14, 16, 00));
+		hra1.setKoniec(LocalDateTime.now());
 
 		hra2 = new Hra();
 		hra2.setPocetTahov(20);
 		hra2.setCasRiesenia(200L);
 		hra2.setUkoncena(true);
-		hra2.setZaciatok(LocalDateTime.of(2018, 12, 14, 15, 00));
-		hra2.setMedzicas(LocalDateTime.of(2018, 12, 14, 17, 00));
+		hra2.setZaciatok(LocalDateTime.of(2018, 1, 14, 15, 00));
+		hra2.setMedzicas(LocalDateTime.of(2018, 1, 14, 17, 00));
 		hra2.setKoniec(LocalDateTime.now().minusDays(2));
 
 		hra3 = new Hra();
 		hra3.setPocetTahov(30);
 		hra3.setCasRiesenia(300L);
 		hra3.setUkoncena(true);
-		hra3.setZaciatok(LocalDateTime.of(2018, 12, 14, 16, 00));
-		hra3.setMedzicas(LocalDateTime.of(2018, 12, 14, 18, 00));
+		hra3.setZaciatok(LocalDateTime.of(2018, 1, 14, 16, 00));
+		hra3.setMedzicas(LocalDateTime.of(2018, 1, 14, 18, 00));
 		hra3.setKoniec(LocalDateTime.now().minusWeeks(2));
 
 		hra4 = new Hra();
@@ -116,8 +116,8 @@ public class StatistikaManagerTest {
 		hra4.setPocetTahov(40);
 		hra4.setCasRiesenia(400L);
 		hra4.setUkoncena(true);
-		hra4.setZaciatok(LocalDateTime.of(2018, 12, 14, 17, 00));
-		hra4.setMedzicas(LocalDateTime.of(2018, 12, 14, 19, 00));
+		hra4.setZaciatok(LocalDateTime.of(2018, 1, 14, 17, 00));
+		hra4.setMedzicas(LocalDateTime.of(2018, 1, 14, 19, 00));
 		hra4.setKoniec(LocalDateTime.now().minusMonths(2));
 	}
 
@@ -154,42 +154,38 @@ public class StatistikaManagerTest {
 		Long id3k = krizovkaDao.ulozit(k3).getId();
 		Long id4k = krizovkaDao.ulozit(k4).getId();
 
+		Obdobie obdobie = Obdobie.DEN;
+		ObservableList<Hra> hryPred = statistikaManager.zmenHry(obdobie);
+		int velkostPred = hryPred.size();
+		
+		
 		hra1.setKrizovkaId(id1k);
-		hra1.setKrizovkaId(id2k);
-		hra1.setKrizovkaId(id3k);
-		hra1.setKrizovkaId(id4k);
+		hra2.setKrizovkaId(id2k);
+		hra3.setKrizovkaId(id3k);
+		hra4.setKrizovkaId(id4k);
 
 		Long id1h = hraDao.ulozit(hra1).getId();
 		Long id2h = hraDao.ulozit(hra2).getId();
 		Long id3h = hraDao.ulozit(hra3).getId();
 		Long id4h = hraDao.ulozit(hra4).getId();
+		
+		ObservableList<Hra> hryPo = statistikaManager.zmenHry(obdobie);
+		int velkostPo = hryPo.size();
+		
+		assertEquals(velkostPred, velkostPo - 1);
 
-		Obdobie obdobie = Obdobie.DEN;
-		ObservableList<Hra> hry = statistikaManager.zmenHry(obdobie);
-
-		boolean ok1 = false;
-		boolean ok2 = true;
-		for (Hra h : hry) {
-			if (id1h == h.getId()) {
-				ok1 = true;
-			}
-			if (id2h == h.getId() || id3h == h.getId() || id4h == h.getId()) {
-				ok2 = false;
-				break;
-			}
-		}
-		System.out.println(ok1 + " " + ok2);
-		assertTrue(ok1 && ok2);
-
+		
+		hraDao.vymazat(id1h);
+		hraDao.vymazat(id2h);
+		hraDao.vymazat(id3h);
+		hraDao.vymazat(id4h);
+		
 		krizovkaDao.vymazat(id1k);
 		krizovkaDao.vymazat(id2k);
 		krizovkaDao.vymazat(id3k);
 		krizovkaDao.vymazat(id4k);
 
-		hraDao.vymazat(id1h);
-		hraDao.vymazat(id2h);
-		hraDao.vymazat(id3h);
-		hraDao.vymazat(id4h);
+		
 	}
 
 	@Test
@@ -199,46 +195,37 @@ public class StatistikaManagerTest {
 		Long id3k = krizovkaDao.ulozit(k3).getId();
 		Long id4k = krizovkaDao.ulozit(k4).getId();
 
+		Obdobie obdobie = Obdobie.TYZDEN;
+		ObservableList<Hra> hryPred = statistikaManager.zmenHry(obdobie);
+		int velkostPred = hryPred.size();
+		
 		hra1.setKrizovkaId(id1k);
-		hra1.setKrizovkaId(id2k);
-		hra1.setKrizovkaId(id3k);
-		hra1.setKrizovkaId(id4k);
+		hra2.setKrizovkaId(id2k);
+		hra3.setKrizovkaId(id3k);
+		hra4.setKrizovkaId(id4k);
 
 		Long id1h = hraDao.ulozit(hra1).getId();
 		Long id2h = hraDao.ulozit(hra2).getId();
 		Long id3h = hraDao.ulozit(hra3).getId();
 		Long id4h = hraDao.ulozit(hra4).getId();
+		
+		ObservableList<Hra> hryPo = statistikaManager.zmenHry(obdobie);
+		int velkostPo = hryPo.size();
 
-		Obdobie obdobie = Obdobie.TYZDEN;
-		ObservableList<Hra> hry = statistikaManager.zmenHry(obdobie);
-
-		boolean ok1 = false;
-		boolean ok2 = false;
-		boolean ok3 = true;
-		for (Hra h : hry) {
-			if (id1h == h.getId()) {
-				ok1 = true;
-			}
-			if (id2h == h.getId()) {
-				ok2 = true;
-			}
-			if (id3h == h.getId() || id4h == h.getId()) {
-				ok3 = false;
-				break;
-			}
-		}
-		System.out.println(ok1 + " " + ok2 + " " + ok3);
-		assertTrue(ok1 && ok2 && ok3);
-
-		krizovkaDao.vymazat(id1k);
-		krizovkaDao.vymazat(id2k);
-		krizovkaDao.vymazat(id3k);
-		krizovkaDao.vymazat(id4k);
+		assertEquals(velkostPred, velkostPo - 2);
+		
 
 		hraDao.vymazat(id1h);
 		hraDao.vymazat(id2h);
 		hraDao.vymazat(id3h);
 		hraDao.vymazat(id4h);
+		
+		krizovkaDao.vymazat(id1k);
+		krizovkaDao.vymazat(id2k);
+		krizovkaDao.vymazat(id3k);
+		krizovkaDao.vymazat(id4k);
+
+		
 	}
 
 	@Test
@@ -249,49 +236,36 @@ public class StatistikaManagerTest {
 		Long id4k = krizovkaDao.ulozit(k4).getId();
 
 		hra1.setKrizovkaId(id1k);
-		hra1.setKrizovkaId(id2k);
-		hra1.setKrizovkaId(id3k);
-		hra1.setKrizovkaId(id4k);
+		hra2.setKrizovkaId(id2k);
+		hra3.setKrizovkaId(id3k);
+		hra4.setKrizovkaId(id4k);
+		
+		Obdobie obdobie = Obdobie.MESIAC;
+		ObservableList<Hra> hryPred = statistikaManager.zmenHry(obdobie);
+		int velkostPred = hryPred.size();
 
 		Long id1h = hraDao.ulozit(hra1).getId();
 		Long id2h = hraDao.ulozit(hra2).getId();
 		Long id3h = hraDao.ulozit(hra3).getId();
 		Long id4h = hraDao.ulozit(hra4).getId();
 
-		Obdobie obdobie = Obdobie.MESIAC;
-		ObservableList<Hra> hry = statistikaManager.zmenHry(obdobie);
+		ObservableList<Hra> hryPo = statistikaManager.zmenHry(obdobie);
+		int velkostPo = hryPo.size();
+		
+		assertEquals(velkostPred, velkostPo - 3);
 
-		boolean ok1 = false;
-		boolean ok2 = false;
-		boolean ok3 = false;
-		boolean ok4 = true;
-		for (Hra h : hry) {
-			if (id1h == h.getId()) {
-				ok1 = true;
-			}
-			if (id2h == h.getId()) {
-				ok2 = true;
-			}
-			if (id3h == h.getId()) {
-				ok3 = true;
-			}
-			if (id4h == h.getId()) {
-				ok4 = false;
-				break;
-			}
-		}
-		System.out.println(ok1 + " " + ok2 + " " + ok3 + " " + ok4);
-		assertTrue(ok1 && ok2 && ok3 && ok4);
-
+		
+		hraDao.vymazat(id1h);
+		hraDao.vymazat(id2h);
+		hraDao.vymazat(id3h);
+		hraDao.vymazat(id4h);
+		
 		krizovkaDao.vymazat(id1k);
 		krizovkaDao.vymazat(id2k);
 		krizovkaDao.vymazat(id3k);
 		krizovkaDao.vymazat(id4k);
 
-		hraDao.vymazat(id1h);
-		hraDao.vymazat(id2h);
-		hraDao.vymazat(id3h);
-		hraDao.vymazat(id4h);
+		
 	}
 
 	@Test
@@ -302,47 +276,36 @@ public class StatistikaManagerTest {
 		Long id4k = krizovkaDao.ulozit(k4).getId();
 
 		hra1.setKrizovkaId(id1k);
-		hra1.setKrizovkaId(id2k);
-		hra1.setKrizovkaId(id3k);
-		hra1.setKrizovkaId(id4k);
+		hra2.setKrizovkaId(id2k);
+		hra3.setKrizovkaId(id3k);
+		hra4.setKrizovkaId(id4k);
 
+		Obdobie obdobie = Obdobie.VSETKY;
+		ObservableList<Hra> hryPred = statistikaManager.zmenHry(obdobie);
+		int velkostPred = hryPred.size();
+
+		
 		Long id1h = hraDao.ulozit(hra1).getId();
 		Long id2h = hraDao.ulozit(hra2).getId();
 		Long id3h = hraDao.ulozit(hra3).getId();
 		Long id4h = hraDao.ulozit(hra4).getId();
 
-		Obdobie obdobie = Obdobie.VSETKY;
-		ObservableList<Hra> hry = statistikaManager.zmenHry(obdobie);
+		ObservableList<Hra> hryPo = statistikaManager.zmenHry(obdobie);
+		int velkostPo = hryPo.size();
+		
+		assertEquals(velkostPred, velkostPo - 4);
 
-		boolean ok1 = false;
-		boolean ok2 = false;
-		boolean ok3 = false;
-		boolean ok4 = false;
-		for (Hra h : hry) {
-			if (id1h == h.getId()) {
-				ok1 = true;
-			}
-			if (id2h == h.getId()) {
-				ok2 = true;
-			}
-			if (id3h == h.getId()) {
-				ok3 = true;
-			}
-			if (id4h == h.getId()) {
-				ok4 = true;
-			}
-		}
-		System.out.println(ok1 + " " + ok2 + " " + ok3 + " " + ok4);
-		assertTrue(ok1 && ok2 && ok3 && ok4);
-
+		
+		hraDao.vymazat(id1h);
+		hraDao.vymazat(id2h);
+		hraDao.vymazat(id3h);
+		hraDao.vymazat(id4h);
+		
 		krizovkaDao.vymazat(id1k);
 		krizovkaDao.vymazat(id2k);
 		krizovkaDao.vymazat(id3k);
 		krizovkaDao.vymazat(id4k);
 
-		hraDao.vymazat(id1h);
-		hraDao.vymazat(id2h);
-		hraDao.vymazat(id3h);
-		hraDao.vymazat(id4h);
+		
 	}
 }

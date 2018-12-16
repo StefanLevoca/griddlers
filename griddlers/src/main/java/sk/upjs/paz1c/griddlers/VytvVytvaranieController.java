@@ -2,6 +2,8 @@ package sk.upjs.paz1c.griddlers;
 
 import java.util.List;
 
+import org.springframework.util.SystemPropertyUtils;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -14,6 +16,7 @@ import sk.upjs.paz1c.griddlers.biznis.Platnovac;
 import sk.upjs.paz1c.griddlers.biznis.VytvVytvaranieManager;
 import sk.upjs.paz1c.griddlers.entity.Krizovka;
 import sk.upjs.paz1c.griddlers.entity.Policko;
+import sk.upjs.paz1c.griddlers.entity.PolickoHry;
 import sk.upjs.paz1c.griddlers.persistentna.DaoFactory;
 import sk.upjs.paz1c.griddlers.persistentna.KrizovkaDao;
 
@@ -101,7 +104,11 @@ public class VytvVytvaranieController extends Controller {
 	@FXML
 	void canvasOnMousePressed(MouseEvent event) {
 		Policko policko = manager.spracujKlik(event, krizovkaCanvas);
-		riesenie.remove(policko); // pretoze equals testuje surX a surY
-		riesenie.add(policko);
+		for (Policko pol : riesenie) {
+			if (pol.equals(policko)) {
+				pol.setStav(policko.getStav());
+			}
+		}
+		
 	}
 }
