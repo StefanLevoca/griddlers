@@ -54,11 +54,13 @@ public class StatistikaController extends Controller {
 		obdobieComboBox.setItems(obdobia);
 		obdobieComboBox.getSelectionModel().selectFirst();
 		hry = manager.zmenHry(obdobieComboBox.getSelectionModel().getSelectedItem());
+		hry.sort(new HraKoniecComparator());
 		obdobieComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Obdobie>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Obdobie> observable, Obdobie oldValue, Obdobie newValue) {
 				hry = manager.zmenHry(newValue);
+				hry.sort(new HraKoniecComparator());
 				statistikaTableView.setItems(hry);
 			}
 		});

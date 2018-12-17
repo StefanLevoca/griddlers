@@ -68,10 +68,10 @@ public class VytvVytvaranieController extends Controller {
 	@FXML
 	void handleUlozButtonAction(ActionEvent event) {
 		if (manager.mozeUlozit()) {
-			Controller controller = new UvodnaObrazovkaController();
 			krizovka.setLegendaH(manager.vytvorLegenduH());
 			krizovka.setLegendaL(manager.vytvorLegenduL());
 			krizovkaDao.ulozit(krizovka);
+			Controller controller = new UvodnaObrazovkaController();
 			novaScena(controller, "uvodna_obr.fxml", ulozButton);
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);

@@ -36,7 +36,9 @@ public class NacitajNedorieseneController extends Controller {
 				naVymazanie.add(hra);
 			}
 		}
+		
 		hry.removeAll(naVymazanie);
+		hry.sort(new HraZaciatokComparator());
 		nedorieseneListView.setItems(FXCollections.observableArrayList(hry));
 		nedorieseneListView.getSelectionModel().selectFirst();
 		hra = nedorieseneListView.getSelectionModel().getSelectedItem();
